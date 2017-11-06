@@ -1,0 +1,152 @@
+/* Remove the margin/padding around content by default. */
+html, body, h1, h2 {
+  padding: 0;
+  margin: 0;
+}
+
+/* Change the color of the body */
+body {
+  background-color: #646464;
+}
+
+/* Stop links from being underlined by default. */
+a {
+  text-decoration: none;
+}
+
+/* The header box. */
+.header-box {
+  height: 200px;
+  background-color: black;
+}
+
+/* Clickable title in the header. */
+.site-title {
+  position: relative;
+  top: 25px;
+  left: 100px;
+  color: white;
+  font-size: 100px;
+  font-weight: 100;
+  white-space: nowrap;
+}
+
+/* The section where all of our posts are held. */
+.posts {
+  width: 75%;
+  display: inline-flex;
+  flex-direction: column;
+}
+
+/* A single post. */
+.post {
+  display: block;
+  margin: 10px;
+  border: 2px solid #ececec;
+  border-radius: 3px;
+}
+
+/* Inner box for post. */
+.post-box {
+  max-height: 300px;
+}
+
+/* Image box for result. */
+.post-image-box {
+  display: inline-block;
+  margin: 10px;
+  width: 200px;
+  max-height: 275px;
+}
+
+/* Images inside the image box. */
+.post-image-box img {
+  display: inline;
+  max-width: 100%;
+  height: auto;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Title component of a post. */
+.post-title-box {
+  vertical-align: top;
+  display: inline-block;
+  margin: 20px;
+  font-weight: 700;
+}
+
+/* The tag of the post. */
+.post-tag {
+  margin: 5px;
+  padding: 2px;
+  font-size: 12px;
+  border: 1px solid #a1a1a1;
+  border-radius: 2px;
+  background-color: #ececec;
+}
+
+/* Title of the post. */
+.post-title {
+  color: white;
+}
+
+/* The topic the post comes from. */
+.post-topic {
+  color: #00D0D0;
+}
+
+/* The user who made the post. */
+.post-user {
+  color: #00D0D0;
+}
+
+/* Mouse over name of result. */
+.post-title:hover {
+  text-decoration: underline;
+}
+
+/* The side panel. */
+.side-bar {
+  display: inline-block;
+  float: right;
+  width: 250px;
+  vertical-align: top;
+  margin: 10px;
+  border: 2px solid #ececec;
+  border-radius: 3px;
+}
+
+/* The blocks that make up the side panel. */
+.side-box {
+  margin: 10px;
+  min-height: 100px;
+}
+
+/* Our update button for our filters. */
+.side-submit {
+  display: inline-block;
+  border: 2px solid #ececec;
+  border-radius: 4px;
+  width: 100%;
+  height: 40px;
+  font-size: 18px;
+  font-weight: 100;
+  color: white;
+  display: block;
+  margin-top: 20px;
+  margin-bottom: 5px;
+}
+
+/* Mouse over our update button for our filters. */
+.side-submit:hover {
+  cursor: pointer;
+  background-color: #00D0D0;
+}
+
+/* Text in the side bar */
+.side-text {
+  font-size: 18px;
+  font-weight: 100;
+  color: white;
+}
