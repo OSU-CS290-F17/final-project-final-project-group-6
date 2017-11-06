@@ -20,8 +20,8 @@ a {
   background-color: black;
 }
 
-/* Clickable title in the header. */
-.site-title {
+/* Components of the title in the header. */
+.header-box span, .site-title, .page-topic {
   position: relative;
   top: 25px;
   left: 100px;
@@ -124,22 +124,20 @@ a {
 }
 
 /* Our update button for our filters. */
-.side-submit {
-  display: inline-block;
+#side-submit-button {
   border: 2px solid #ececec;
   border-radius: 4px;
   width: 100%;
   height: 40px;
   font-size: 18px;
-  font-weight: 100;
   color: white;
-  display: block;
+  background-color: #b0b0b0;
   margin-top: 20px;
-  margin-bottom: 5px;
+  margin-bottom: 20px;
 }
 
 /* Mouse over our update button for our filters. */
-.side-submit:hover {
+#side-submit-button:hover {
   cursor: pointer;
   background-color: #00D0D0;
 }
@@ -149,4 +147,31 @@ a {
   font-size: 18px;
   font-weight: 100;
   color: white;
+}
+
+/* The create post modal. */
+#create-post-modal {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1010;
+  overflow: scroll;
+}
+
+/* Background for when the modal is active.*/
+#modal-background {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background-color: rgba(0, 0, 0, 0.85);
+}
+
+/* Anything with the hidden class is not shown. */
+.hidden {
+  display: none;
 }
