@@ -16,19 +16,30 @@ a {
 
 /* The header box. */
 .header-box {
+  display: flex;
+  flex-direction: row;
+  
   height: 200px;
   background-color: black;
+  
 }
 
 /* Components of the title in the header. */
 .header-box span, .site-title, .page-topic {
+  font-family: 'Gloria Hallelujah';
   position: relative;
   top: 25px;
   left: 100px;
   color: white;
-  font-size: 100px;
+  font-size: 75px;
   font-weight: 100;
   white-space: nowrap;
+}
+
+/* set header image max height */
+.header-box img {
+	max-height: 190px;
+	margin: 10px;
 }
 
 /* The section where all of our posts are held. */
