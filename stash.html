@@ -1,110 +1,96 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title>Title</title>
+	<head>
+		<meta charset="utf-8">
+		<title>Stash</title>
+		<link href="https://fonts.googleapis.com/css?family=Gloria+Hallelujah" rel="stylesheet">
+		<link rel="stylesheet" href="style.css">
+	</head>
+	<body>
 
-    <link rel="stylesheet" href="style.css">
-  </head>
-  <body>
+		<header>
+			<div class="header-box">
+				<img src="site_photos/chest.jpg" alt="Header image.">
+				<a class="site-title" href="#">Stash</a>
+			</div>
+		</header>
 
-    <header>
-      <div class="header-box">
-        <img src="" alt="Header image.">
-        <a class="site-title" href="#">Stash</a>
-      </div>
-    </header>
+		<main>
+			<div class="content-container">
+				<section class="stashes"> <!--Alphabetical order -->
+			
+					<div class="stash" data-topic="Cars">
+						<div class="post-box">
+							<div class="post-title-box">
+								<a href="#" class="stash-title">Cars</a> <span class="stash-desc">A stash of everything car related.</span></br>
+							</div>
+						</div>
+					</div>
+			
+					<div class="stash" data-topic="Ferrets">
+						<div class="post-box">
+							<div class="post-title-box">
+								<a href="#" class="stash-title">Ferrets</a> <span class="stash-desc">Lets talk about Fettets!</span></br>
+							</div>
+						</div>
+					</div>
+		  
+					<div class="stash" data-topic="Star Wars">
+						<div class="post-box">
+							<div class="post-title-box">
+								<a href="#" class="stash-title">Star Wars</a> <span class="stash-desc">A stash to fit all your Star Wars needs.</span></br>
+							</div>
+						</div>
+					</div>
 
-    <main class="page-content">
-      <section class="posts">
+				</section>
+			</div>
 
-        <div class="post" data-type="Picture" data-tag="New cars" data-topic="Cars" data-score="5" data-user="BlueZebra">
-          <div class="post-box">
-            <div class="post-image-box">
-              <img src="https://auto.ndtvimg.com/car-images/medium/ferrari/gtc4lusso/ferrari-gtc4lusso.jpg?v=11">
-            </div>
-            <div class="post-title-box">
-              <a href="#" class="post-title">Cool new car on the market.</a> <span class="post-tag">New cars</span></br>
-              <span class="post-topic">From Cars </span> <span class="post-user">by BlueZebra</span>
-            </div>
-          </div>
-        </div>
+			<div class="side-bar">
 
-        <div class="post" data-type="Text" data-tag="Weather" data-topic="News" data-score="203" data-user="GreenOx">
-          <div class="post-box">
-            <div class="post-title-box">
-              <a href="#" class="post-title">Be ready for rain.</a> <span class="post-tag">Weather</span></br>
-              <span class="post-topic">From News </span> <span class="post-user">by GreenOx</span>
-            </div>
-          </div>
-        </div>
+				<div class="side-box">
+					<div class="side-submit-box">
+						<button id="side-submit-button" class="action-button" href="#">Create New Stash.</a>
+					</div>
+				</div>
 
-        <div class="post" data-type="Picture" data-tag="Funny" data-topic="Cats" data-score="950" data-user="RedSeagull">
-          <div class="post-box">
-            <div class="post-image-box">
-              <img src="https://i.ytimg.com/vi/tntOCGkgt98/maxresdefault.jpg">
-            </div>
-            <div class="post-title-box">
-              <a href="#" class="post-title">Hidden cat.</a> <span class="post-tag">Funny</span></br>
-              <span class="post-topic">From Cats </span> <span class="post-user">by RedSeagull</span>
-            </div>
-          </div>
-        </div>
+				<div class="side-box">
+					<span class="side-text">Random text here seeing what this looks like.</span>
+				</div>
 
-      </section>
+			</div>
+    
 
-      <div class="side-bar">
+			<div id="modal-background" class="hidden"></div>
+		
+			<div id="create-post-modal" class="hidden">
+				<div class="modal-dialog">
+			
+					<div class="modal-header">
+						<h3>Make a new post.</h3>
+						<button type="button" class="close-modal">&times;</button>
+					</div>
 
-        <div class="side-box">
-          <div class="side-submit-box">
-            <button id="side-submit-button" href="#">Submit new post.</a>
-          </div>
-        </div>
+					<div class="modal-body">
 
-        <div class="side-box">
-        </div>
+						<div class="post-input-element">
+							<label for="post-title-input">Post title</label>
+							<input type="text" id="post-text-input"></input>
+						</div>
 
-        <div class="side-box">
-        </div>
+						<div class="post-input-element">
+							<label for="post-photo-input">Photo URL</label>
+							<input type="text" id="post-photo-input">
+						</div>
+					</div>
 
-        <div class="side-box">
-        </div>
-
-        <div class="side-box">
-          <span class="side-text">Random text here seeing what this looks like.</span>
-        </div>
-
-      </div>
-
-      <div id="modal-background" class="hidden"></div>
-      <div id="create-post-modal" class="hidden">
-        <div class="modal-dialog">
-
-          <div class="modal-header">
-            <h3>Make a new post.</h3>
-            <button type="button" class="close-modal">&times;</button>
-          </div>
-
-          <div class="modal-body">
-
-            <div class="post-input-element">
-              <label for="post-title-input">Post title</label>
-              <input type="text" id="post-text-input"></input>
-            </div>
-
-            <div class="post-input-element">
-              <label for="post-photo-input">Photo URL</label>
-              <input type="text" id="post-photo-input">
-            </div>
-
-          </div>
-
-          <div class="modal-footer">
-            <button type="button" id="modal-cancel" class="modal-hide-button action-button">Cancel</button>
-            <button type="button" id="modal-accept" class="action-button">Create Post</button>
-          </div>
-
-    </main>
+					<div class="modal-footer">
+						<button type="button" id="modal-cancel" class="close-modal">Cancel</button>
+						<button type="button" id="modal-accept" class="action-button">Create Post</button>
+					</div>
+				</div>
+			</div>
+		</main>
 
   </body>
 
