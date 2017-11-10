@@ -4,6 +4,11 @@ html, body, h1, h2 {
   margin: 0;
 }
 
+html *
+{
+  font-family: Arial;
+}
+
 /* Change the color of the body */
 body {
   background-color: #646464;
@@ -21,7 +26,6 @@ a {
   
   height: 200px;
   background-color: black;
-  
 }
 
 /* Components of the title in the header. */
@@ -134,24 +138,6 @@ a {
   min-height: 100px;
 }
 
-/* Our update button for our filters. */
-#side-submit-button {
-  border: 2px solid #ececec;
-  border-radius: 4px;
-  width: 100%;
-  height: 40px;
-  font-size: 18px;
-  color: white;
-  background-color: #b0b0b0;
-  margin-top: 20px;
-  margin-bottom: 20px;
-}
-
-/* Mouse over our update button for our filters. */
-#side-submit-button:hover {
-  cursor: pointer;
-  background-color: #00D0D0;
-}
 
 /* Text in the side bar */
 .side-text {
@@ -185,4 +171,102 @@ a {
 /* Anything with the hidden class is not shown. */
 .hidden {
   display: none;
+}
+
+.modal-dialog {
+  width: auto;
+  max-width: 600px;
+  min-width: 350px;
+  min-height: 300px;
+  margin: 40px auto;
+  border-radius: 3px;
+  background-color: #646464;
+  border-style: solid;
+  border-width: 2px;
+  border-color: white;
+  color: white;
+}
+
+.modal-header {
+  position: relative;
+  padding: 10px 20px;
+}
+
+.modal-header h3 {
+  margin: 0;
+  font-size: 28px;
+}
+
+.close-modal {
+  border: 2px solid #ececec;
+  border-radius: 4px;
+  width: 50px;
+  height: 30px;
+  font-size: 18px;
+  color: white;
+  background-color: #b0b0b0;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.close-modal:hover {
+  cursor: pointer;
+  background-color: #00D0D0;
+}
+
+.modal-body {
+  padding: 20px;
+}
+
+.post-input-element {
+  display: flex;
+  align-items: center;
+  font-size: 20px;
+  margin: 10px 0;
+}
+
+.post-input-element > label {
+  font-weight: 600;
+  flex: 1 75px;
+  margin-right: 10px;
+}
+
+.post-input-element input {
+  flex: 6 200px;
+  padding: 8px;
+  font-size: 20px;
+  border: 1px solid #aaa;
+}
+
+.post-fieldset {
+  flex: 1 100%;
+  border: 1px solid #ababab;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  padding: 10px 10px 20px 10px;
+}
+
+.action-button {
+  border: 2px solid #ececec;
+  border-radius: 3px;
+  width: 100%;
+  height: 40px;
+  font-size: 18px;
+  color: white;
+  background-color: #b0b0b0;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.action-button:hover {
+  cursor: pointer;
+  background-color: #00D0D0;
+}
+
+#modal-cancel,
+#modal-accept {
+  margin-right: 20px;
 }
