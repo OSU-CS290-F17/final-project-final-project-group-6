@@ -46,16 +46,17 @@ a {
 	margin: 10px;
 }
 
-/* The section where all of our posts are held. */
-.posts {
+/* The section where all of our content is held. */
+.content-container {
   width: 75%;
   display: inline-flex;
   flex-direction: column;
 }
 
-/* A single post. */
-.post {
+/* A single stash/post/comment. */
+.post, .stash, .comment {
   display: block;
+  width: 75%;
   margin: 10px;
   border: 2px solid #ececec;
   border-radius: 3px;
@@ -64,6 +65,12 @@ a {
 /* Inner box for post. */
 .post-box {
   max-height: 300px;
+}
+
+/* Inner box for stash/post/comment */
+.stash-box, .post-box, .comment {
+  max-height: 300px;
+  padding: 5px;
 }
 
 /* Image box for result. */
@@ -81,6 +88,7 @@ a {
   height: auto;
   margin-left: auto;
   margin-right: auto;
+  border: 2px solid #ececec;
 }
 
 /* Title component of a post. */
@@ -101,14 +109,32 @@ a {
   background-color: #ececec;
 }
 
-/* Title of the post. */
-.post-title {
+/* Standard text of stash/post/comment. */
+.post-title, .stash-desc, .comment {
+  color: white;
+}
+
+/* Box where you enter a new comment. */
+.new-comment {
+  margin: 10px;
+  padding: 5px;
+  border: 2px solid #ececec;
+  border-radius: 3px;
+  width: 75%;
+  display: inline-flex;
+  flex-direction: column;
   color: white;
 }
 
 /* The topic the post comes from. */
 .post-topic {
   color: #00D0D0;
+}
+
+/* The title of a stash. */
+.stash-title  {
+  color: #00D0D0;
+  font-size: 20px;
 }
 
 /* The user who made the post. */
@@ -138,7 +164,6 @@ a {
   min-height: 100px;
 }
 
-
 /* Text in the side bar */
 .side-text {
   font-size: 18px;
@@ -146,7 +171,7 @@ a {
   color: white;
 }
 
-/* The create post modal. */
+/* The create post/stash modal. */
 #create-post-modal, #create-stash-modal {
   position: fixed;
   top: 0;
@@ -249,6 +274,7 @@ a {
   padding: 10px 10px 20px 10px;
 }
 
+/* Visual look of all action buttons. */
 .action-button {
   border: 2px solid #ececec;
   border-radius: 3px;
@@ -261,6 +287,7 @@ a {
   margin-bottom: 20px;
 }
 
+/* Make action buttons glow teal when hovered over. */
 .action-button:hover {
   cursor: pointer;
   background-color: #00D0D0;
