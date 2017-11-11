@@ -23,7 +23,7 @@ a {
 .header-box {
   display: flex;
   flex-direction: row;
-  
+
   height: 200px;
   background-color: black;
 }
@@ -147,7 +147,7 @@ a {
 }
 
 /* The create post modal. */
-#create-post-modal {
+#create-post-modal, #create-stash-modal {
   position: fixed;
   top: 0;
   bottom: 0;
