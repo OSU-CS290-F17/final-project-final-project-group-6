@@ -111,8 +111,6 @@ if(stashSubmitButton)
 
   // User interaction with modal.
   createStashModal.addEventListener("click", function(e) {
-    // User clicks on cancel or close buttons.
-    console.log("User clicked on stash modal.")
     var clickTarget = e.target;
     if(clickTarget.classList.contains("close-modal")) {
       respondToCloseClick();
