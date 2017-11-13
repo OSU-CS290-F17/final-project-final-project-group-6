@@ -35,7 +35,6 @@ app.get('*', function (req, res, next) {
 app.delete('*', function (req, res, next) { //catch all for any http delete requests.  WE DO NOT ALLOW ANY DELETE REQUEST
   console.log("Server received a DELETE request and it was denied.");
   res.status(405).send("DELETE is not allowed.");//statuscode 405 = Method not alowed
-  console.log
 });
 /*
 *Continue adding express code 
