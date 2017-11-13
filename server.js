@@ -23,6 +23,7 @@ var app = express();
 *
 *insert expredd code here (the "app" variable)
 *
+*	console.log('Server received "' + req.method + '" request on the URL "' + req.url + '"');
 *
 */
 //catch any http get method with a path that can not be resolved above
@@ -30,11 +31,12 @@ app.get('*', function (req, res, next) {
 	/*
 	*code for any 404 error page may want to be added here
 	*/
-  res.status(404).send("Requested page not found");
+	console.log('Server received "' + req.method + '" request on the URL "' + req.url + '" --PAGE NOT FOUND');
+	res.status(404).send("Requested page not found");
 });
 app.delete('*', function (req, res, next) { //catch all for any http delete requests.  WE DO NOT ALLOW ANY DELETE REQUEST
-  console.log("Server received a DELETE request and it was denied.");
-  res.status(405).send("DELETE is not allowed.");//statuscode 405 = Method not alowed
+	console.log('Server received "' + req.method + '" request on the URL "' + req.url + '" --METHOD NOT ALLOLWED');
+	res.status(405).send("DELETE is not allowed.");//statuscode 405 = Method not alowed
 });
 /*
 *Continue adding express code 
@@ -51,7 +53,7 @@ if(process.env.PORT){
 	port = process.env.PORT;
 }
 //start server
-expressServer.listen(port, function () {
+app.listen(port, function () {
     /*
 	*
 	*
