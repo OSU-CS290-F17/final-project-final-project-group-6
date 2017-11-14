@@ -1,13 +1,15 @@
 console.log("Server JavaScript start.");
 var fs = require('fs');
 var path = require('path');
-//var http = require('http') //we may not need HTTP module
+//var http = require('http') //we may not need the HTTP module
 var MongoClient = require('mongodb').MongoClient, test = require('assert');
 var handlebars = require('handlebars');
 var express = require('express');
 var app = express();
 
-
+//read files
+var fileServerJS = fs.readFileSync('index.js', 'utf8');
+var fileStyleCSS = fs.readFileSync('style.css', 'utf8');
 
 
 //TEMPORARY STASH OBJECT -- remove once database is functional
@@ -73,7 +75,28 @@ allPosts.push(new Post(0, 0, "New cars", 5, "BlueZebra", "https://auto.ndtvimg.c
 allPosts.push(new Post(1, 6, "Weather", 203, "GreenOx", null, "Be ready for rain."));
 allPosts.push(new Post(2, 1, "Funny", 950, "RedSeagull", "https://i.ytimg.com/vi/tntOCGkgt98/maxresdefault.jpg", "Hidden cat."));
 		
-
+//TEMPORARY COMMENT OBJECT -- remove once database is functional
+function Comment(commentID, postID, commentUser, commentBody){
+	this.commentID = commentID;
+	this.postID = postID;
+	this.commentUser = commentUser;
+	this.commentBody = commentBody;
+	this.getCommentID = function () {
+		return this.commentID;
+	}
+	this.getPostID = function () {
+		return this.postID;
+	}
+	this.getCommentUser = function () {
+		return this.commentUser;
+	}
+	this.getCommentBody = function () {
+		return this.commentBody;
+	}
+}
+var allComments = [];
+allComments.push(new Comment(0, 0, "RedSeagull", "I WANT ONE!!!!!!"));
+allComments.push(new Comment(1, 0, "ToastyJungle", "I lost mine :("));
 
 
 
@@ -135,6 +158,17 @@ app.delete('*', function (req, res, next) {
 	res.status(405).send("DELETE is not allowed.");//note that status code 405 = Method not alowed
 });
 
+app.get('/style.css', function (req, res, next) {
+	console.log('Server received "' + req.method + '" request on the URL "' + req.url + '" --Contents of style.css sent');
+	res.type('text/css').status(200).send(fileStyleCSS);
+});
+
+app.get('/index.js', function (req, res, next) {
+	console.log('Server received "' + req.method + '" request on the URL "' + req.url + '" --Contents of index.js sent');
+	
+	res.type('application/javascript').status(200).send(fileServerJS);
+});
+
 app.get('/', function (req, res, next) {
 	req.url = '/stash';//if url is home directory change it to /stash so next middleware function can catch it
 	next();
@@ -142,7 +176,7 @@ app.get('/', function (req, res, next) {
 
 app.get('/stash', function (req, res, next) {
 	console.log('Server received "' + req.method + '" request on the URL "' + req.url + '" --page found');
-	var content = null;
+	var content;
 	/*
 	* add content of stash main page to "content" variable
 	*/
@@ -150,12 +184,14 @@ app.get('/stash', function (req, res, next) {
 });
 
 app.get('/:pageType/:identifier', function (req, res, next) {
-	var content = null;
-	if(req.pageType === '/stash'){ //url is in the form /stash/:stashName
-		if(isStashNameInDatabase(req.identifier)){
+	var pageType = req.params.pageType;
+	var identifier = req.params.identifier;
+	var content;
+	if(pageType === 'stash'){ //url is in the form /stash/:stashName
+		if(isStashNameInDatabase(identifier)){
 			console.log('Server received "' + req.method + '" request on the URL "' + req.url + '" --page found');
 			/*
-			*add code to put site content into "content" variable for displaying all the posts in the current stash (req.identifier)
+			*add code to put site content into "content" variable for displaying all the posts in the current stash (identifier)
 			*/
 			res.status(200).send(content);
 		}
@@ -163,11 +199,11 @@ app.get('/:pageType/:identifier', function (req, res, next) {
 			next();
 		}
 	}
-	else if(req.pageType === '/post'){ // url is in the form /post/:postID
-		if(isPostInDatabase(req.identifier){
+	else if(pageType === 'post'){ // url is in the form /post/:postID
+		if(isPostInDatabase(identifier)){
 			console.log('Server received "' + req.method + '" request on the URL "' + req.url + '" --page found');
 			/*
-			*add code to put site content into "content" variable for displaying all the comments for the current post (req.identifier)
+			*add code to put site content into "content" variable for displaying all the comments for the current post (identifier)
 			*/
 			res.status(200).send(content);
 		}
@@ -180,6 +216,9 @@ app.get('/:pageType/:identifier', function (req, res, next) {
 //catch any http get method with a path that can not be resolved above
 app.get('*', function (req, res, next) {
 	var content = null;
+	/*
+	*/
+	content += 'omg nooo';
 	/*
 	*add code for any 404 error page and save it to "content" variable
 	*/
