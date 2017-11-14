@@ -12,7 +12,7 @@ var app = express();
 
 //TEMPORARY STASH OBJECT -- remove once database is functional
 function Stash(stashID, stashName, stashDescription){
-	this.stashID = stashID
+	this.stashID = stashID;
 	this.stashName = stashName;
 	this.stashDescription = stashDescription;
 	this.getStashID = function () {
@@ -25,22 +25,54 @@ function Stash(stashID, stashName, stashDescription){
 		return this.stashDescription;
 	}
 }
-var allStashes = []
+var allStashes = [];
 allStashes.push(new Stash(0, 'Cars', 'Cool Cars!!!'));
 allStashes.push(new Stash(1, 'Cats', 'Everything to fill all your "Cat" needs.'));
 allStashes.push(new Stash(2, 'Ferrets', 'If you dont like them, then leave!!!'));
 allStashes.push(new Stash(3, 'Hackers', 'The people that live in my router and break my internet connection.'));
 allStashes.push(new Stash(4, 'Invisible Glasses', 'Help people find theirs (they get lost easily)!'));
-allStashes.push(new Stash(5, 'Metallic Fruit', 'Because we so bored that anything would seem entertaining.'));
-allStashes.push(new Stash(6, 'Pocket-sized Elephants', "Who would't want one?"));
-allStashes.push(new Stash(7, 'Starwars', 'Learn to use the force by going here.'));
-allStashes.push(new Stash(8, 'Xbox', 'Share about one Bad4$$ Console!'));
+allStashes.push(new Stash(5, 'Metallic Fruit', 'Because we so bored that anything would seem entertaining at this point.'));
+allStashes.push(new Stash(6, 'News', "Because we aren't scared enough as it is...  So lets talk about the News."));
+allStashes.push(new Stash(7, 'Pocket-sized Elephants', "Who would't want one?"));
+allStashes.push(new Stash(8, 'Starwars', 'Learn to use the force by going here.'));
+allStashes.push(new Stash(9, 'Xbox', 'Share about one Bad4$$ Console!'));
 
 //TEMPORARY POST OBJECT -- remove once database is functional
-
-
-
-
+function Post(postID, stashID, postTag, postScore, postUser, postImgURL, postBody){
+	this.postID = postID;
+	this.stashID = stashID;
+	this.postTag = postTag;
+	this.postScore = postScore;
+	this.postUser = postUser;
+	this.postImgURL = postImgURL;
+	this.postBody = postBody;
+	this.getPostID = function () {
+		return this.postID;
+	}
+	this.getStashID = function () {
+		return this.stashID;
+	}
+	this.getPostTag = function () {
+		return this.postTag;
+	}
+	this.getPostScore = function () {
+		return this.postScore;
+	}
+	this.getPostUser = function () {
+		return this.postUser;
+	}
+	this.getPostImgURL = function () {
+		return this.postImgURL;
+	}
+	this.getPostBody = function () {
+		return this.postBody;
+	}
+}
+var allPosts = [];
+allPosts.push(new Post(0, 0, "New cars", 5, "BlueZebra", "https://auto.ndtvimg.com/car-images/medium/ferrari/gtc4lusso/ferrari-gtc4lusso.jpg?v=11", "Cool new car on the market."));
+allPosts.push(new Post(1, 6, "Weather", 203, "GreenOx", null, "Be ready for rain."));
+allPosts.push(new Post(2, 1, "Funny", 950, "RedSeagull", "https://i.ytimg.com/vi/tntOCGkgt98/maxresdefault.jpg", "Hidden cat."));
+		
 
 
 
@@ -68,7 +100,8 @@ MongoClient.connect(databaseConnectionString, function(err, db) {
 	console.log("Successfully connected to MongoDB!");
 });
 
-//convert from object to database
+//!!!!!!convert from object to database!!!!!!!!!!!!
+//check if stash is in database
 function isStashNameInDatabase(stashName){
 	for(var i = 0; i < allStashes.length; i++){
 		if(allStashes[i].getStashName().toLowerCase() === stashName.toLowerCase()){
@@ -77,6 +110,18 @@ function isStashNameInDatabase(stashName){
 	}
 	return false;
 }
+
+//!!!!!!convert from object to database!!!!!!!!!!!!
+//check if post is in database
+function isPostInDatabase(postID){
+	for(var i = 0; i < allPosts.length; i++){
+		if(allPosts[i].getPostID == postID){//using == instead of === on purpose
+			return true;
+		}
+	}
+	return false;
+}
+
 
 
 
@@ -96,7 +141,7 @@ app.get('/', function (req, res, next) {
 });
 
 app.get('/stash', function (req, res, next) {
-	console.log('Server received "' + req.method + '" request on the URL "' + req.url + '"');
+	console.log('Server received "' + req.method + '" request on the URL "' + req.url + '" --page found');
 	var content = null;
 	/*
 	* add content of stash main page to "content" variable
@@ -108,7 +153,7 @@ app.get('/:pageType/:identifier', function (req, res, next) {
 	var content = null;
 	if(req.pageType === '/stash'){ //url is in the form /stash/:stashName
 		if(isStashNameInDatabase(req.identifier)){
-			console.log('Server received "' + req.method + '" request on the URL "' + req.url + '"');
+			console.log('Server received "' + req.method + '" request on the URL "' + req.url + '" --page found');
 			/*
 			*add code to put site content into "content" variable for displaying all the posts in the current stash (req.identifier)
 			*/
@@ -119,14 +164,15 @@ app.get('/:pageType/:identifier', function (req, res, next) {
 		}
 	}
 	else if(req.pageType === '/post'){ // url is in the form /post/:postID
-		console.log('Server received "' + req.method + '" request on the URL "' + req.url + '"');
-		/*
-		*code for displaying comments for the current stash
-		*be sure to check that post is in database first
-		*/
-		res.status(200).send(content);
+		if(isPostInDatabase(req.identifier){
+			console.log('Server received "' + req.method + '" request on the URL "' + req.url + '" --page found');
+			/*
+			*add code to put site content into "content" variable for displaying all the comments for the current post (req.identifier)
+			*/
+			res.status(200).send(content);
+		}
 	}
-	else{//if get request does not matsh the /stash/:stashName or /post/:postID form, then move on to next middleware function
+	else{//if get request does not match the form /stash/:identifier(stashName) and /post/:identifier(postID) or :identifier does not correlate to a post/stash then move on to next middleware function
 		next();
 	}
 });
