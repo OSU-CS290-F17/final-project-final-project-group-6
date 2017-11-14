@@ -215,10 +215,7 @@ app.get('/:pageType/:identifier', function (req, res, next) {
 
 //catch any http get method with a path that can not be resolved above
 app.get('*', function (req, res, next) {
-	var content = null;
-	/*
-	*/
-	content += 'omg nooo';
+	var content;
 	/*
 	*add code for any 404 error page and save it to "content" variable
 	*/
