@@ -126,7 +126,7 @@ a {
   color: white;
 }
 
-/* The topic the post comes from. */
+/* The stash the post comes from. */
 .post-topic {
   color: #00D0D0;
 }
@@ -161,10 +161,47 @@ a {
 /* The blocks that make up the side panel. */
 .side-box {
   margin: 10px;
-  min-height: 100px;
+  min-height: 50px;
 }
 
-/* Text in the side bar */
+/* The blocks that make up the side panel with borders. */
+.side-box-border {
+  margin: 10px;
+  padding: 10px;
+  min-height: 50px;
+  border: 2px solid #ececec;
+  border-radius: 3px;
+  background-color: #808080;
+}
+
+/* Search box in the side bar. */
+.search-box {
+  color: white;
+}
+
+/* The search text field in the side bar. */
+.search-bar {
+  display: inline-flex;
+  width: 100%;
+  min-width: 10px;
+  border: 2px solid #ececec;
+  border-radius: 3px;
+}
+
+/* The search button. */
+.search-button {
+  border: 2px solid #ececec;
+  border-radius: 3px;
+  width: 100%;
+  height: 30px;
+  font-size: 18px;
+  color: white;
+  background-color: #b0b0b0;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+/* Text in the side bar. */
 .side-text {
   font-size: 18px;
   font-weight: 100;
@@ -191,6 +228,15 @@ a {
   right: 0;
   z-index: 1000;
   background-color: rgba(0, 0, 0, 0.85);
+}
+
+/* Field where comments are entered by users. */
+#comment-body-input {
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 10px;
+  border: 2px solid #ececec;
+  border-radius: 3px;
 }
 
 /* Anything with the hidden class is not shown. */
@@ -268,6 +314,7 @@ a {
   border: 1px solid #ababab;
 }
 
+/* The modals footer. */
 .modal-footer {
   display: flex;
   justify-content: flex-end;
@@ -293,6 +340,7 @@ a {
   background-color: #00D0D0;
 }
 
+/* The modal's cancel and accept buttons. */
 #modal-cancel,
 #modal-accept {
   margin-right: 20px;
