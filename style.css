@@ -345,3 +345,17 @@ a {
 #modal-accept {
   margin-right: 20px;
 }
+
+/* 404 page's content. */
+.content-box-404 {
+  text-align: center;
+  color: white;
+  margin-top: 100px;
+}
+
+/* 404 page's image. */
+.img-404 {
+  margin: 30px 10px 10px 10px;
+  width: 150px;
+  height: 150px;
+}
