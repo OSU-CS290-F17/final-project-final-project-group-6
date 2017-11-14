@@ -334,8 +334,8 @@ a {
   margin-bottom: 20px;
 }
 
-/* Make action buttons glow teal when hovered over. */
-.action-button:hover {
+/* Make action buttons / search button glow teal when hovered over. */
+.action-button:hover, .search-button:hover {
   cursor: pointer;
   background-color: #00D0D0;
 }
@@ -351,6 +351,7 @@ a {
   text-align: center;
   color: white;
   margin-top: 100px;
+  margin-bottom: 100px;
 }
 
 /* 404 page's image. */

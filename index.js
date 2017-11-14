@@ -1,6 +1,6 @@
 console.log("JavaScript start.");
 
-console.log("Define variables.")
+console.log("Define variables for submiting posts/stashes.")
 var postSubmitButton = document.getElementById('post-submit-button');
 var stashSubmitButton = document.getElementById('stash-submit-button');
 var modalBackground = document.getElementById('modal-background');
@@ -67,7 +67,6 @@ if(postSubmitButton)
 
 }
 
-
 //======================== SUBMIT STASHES ===================================//
 
 if(stashSubmitButton)
@@ -123,3 +122,37 @@ if(stashSubmitButton)
 }
 
 //======================== SEARCH ===================================//
+
+console.log("Define variables for searching posts/stashes.")
+var searchButton = document.getElementById("id-search-button");
+var searchStash = document.getElementById("search-stash");
+var searchPost = document.getElementById("search-post");
+
+
+// This function sends a request to the server to find a stash that contains
+// the given text.
+function requestSearchStash() {
+  console.log("We are searching for a stash.")
+}
+
+// This function sends a request to the server to find a post that contains
+// the given text.
+function requestSearchPost() {
+  console.log("We are searching for a post.")
+}
+
+// User clicks on search button.
+searchButton.addEventListener("click", function() {
+  if(searchPost) {
+    // Don't search if the text field is empty.s
+    if(searchPost.value !== "") {
+      requestSearchPost();
+    }
+  }
+  if(searchStash) {
+    // Don't search if the text field is empty.s
+    if(searchStash.value !== "") {
+      requestSearchStash();
+    }
+  }
+});
