@@ -8,8 +8,12 @@ var express = require('express');
 var app = express();
 
 //read files
-var fileServerJS = fs.readFileSync('index.js', 'utf8');
+var fileIndexJS = fs.readFileSync('index.js', 'utf8');
 var fileStyleCSS = fs.readFileSync('style.css', 'utf8');
+var fileChestImage = fs.readFileSync('site_photos/chest.jpg');
+var fileNoTreasureImage = fs.readFileSync('site_photos/no_treasure.png');
+
+//var file404HTML = fs.readFileSync('404.html', 'utf8');
 
 
 //TEMPORARY STASH OBJECT -- remove once database is functional
@@ -149,7 +153,7 @@ function isPostInDatabase(postID){
 
 
 //////////////////////////////////////
-////*express Middleware Functions*////
+////*Express Middleware Functions*////
 //////////////////////////////////////
 
 //a catch all for any http DELETE requests.  WE DO NOT ALLOW ANY DELETE REQUEST
@@ -165,8 +169,17 @@ app.get('/style.css', function (req, res, next) {
 
 app.get('/index.js', function (req, res, next) {
 	console.log('Server received "' + req.method + '" request on the URL "' + req.url + '" --Contents of index.js sent');
-	
-	res.type('application/javascript').status(200).send(fileServerJS);
+	res.status(200).send(fileIndexJS);
+});
+
+app.get('/site_photos/chest.jpg', function (req, res, next) {
+	console.log('Server received "' + req.method + '" request on the URL "' + req.url + '" --chest.jpg sent');
+	res.type('image/jpeg').status(200).send(fileChestImage);
+});
+
+app.get('/site_photos/no_treasure.png', function (req, res, next) {
+	console.log('Server received "' + req.method + '" request on the URL "' + req.url + '" --no_treasure.jpg sent');
+	res.type('image/png').status(200).send(fileNoTreasureImage);
 });
 
 app.get('/', function (req, res, next) {
@@ -195,9 +208,6 @@ app.get('/:pageType/:identifier', function (req, res, next) {
 			*/
 			res.status(200).send(content);
 		}
-		else{// if the requested url has a bad stash name move on to next middleware finction
-			next();
-		}
 	}
 	else if(pageType === 'post'){ // url is in the form /post/:postID
 		if(isPostInDatabase(identifier)){
@@ -208,19 +218,14 @@ app.get('/:pageType/:identifier', function (req, res, next) {
 			res.status(200).send(content);
 		}
 	}
-	else{//if get request does not match the form /stash/:identifier(stashName) and /post/:identifier(postID) or :identifier does not correlate to a post/stash then move on to next middleware function
-		next();
-	}
+	next();
 });
 
 //catch any http get method with a path that can not be resolved above
 app.get('*', function (req, res, next) {
-	var content;
-	/*
-	*add code for any 404 error page and save it to "content" variable
-	*/
 	console.log('Server received "' + req.method + '" request on the URL "' + req.url + '" --PAGE NOT FOUND');
-	res.status(404).send(content);
+	//res.status(200).send(file404HTML);
+	res.status(404).sendFile(path.join(__dirname, '404.html'));
 });
 /*
 *
