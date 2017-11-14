@@ -13,7 +13,6 @@ var fileStyleCSS = fs.readFileSync('style.css', 'utf8');
 var fileChestImage = fs.readFileSync('site_photos/chest.jpg');
 var fileNoTreasureImage = fs.readFileSync('site_photos/no_treasure.png');
 
-//var file404HTML = fs.readFileSync('404.html', 'utf8');
 
 
 //TEMPORARY STASH OBJECT -- remove once database is functional
@@ -110,8 +109,10 @@ allComments.push(new Comment(1, 0, "ToastyJungle", "I lost mine :("));
 ////*Code Related to connecting to MongoDB*////
 ///////////////////////////////////////////////
 //pull password from database from a special file in parent directory of current directory
+/* 
 var databasePassword = fs.readFileSync('../database-pass.txt', 'utf8')
-var databaseConnectionString = "mongodb://HauntedWAMPUS:" + databasePassword + "@cluster0-shard-00-00-pdrgi.mongodb.net:27017,cluster0-shard-00-01-pdrgi.mongodb.net:27017,cluster0-shard-00-02-pdrgi.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin"
+var databaseConnectionString = "mongodb://HauntedWAMPUS:" + databasePassword + "@cluster0-shard-00-00-pdrgi.mongodb.net:27017,cluster0-shard-00-01-pdrgi.mongodb.net:27017,cluster0-shard-00-02-pdrgi.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin" 
+*/
 /*
 *
 *
@@ -119,6 +120,7 @@ var databaseConnectionString = "mongodb://HauntedWAMPUS:" + databasePassword + "
 *
 *
 */
+/* 
 MongoClient.connect(databaseConnectionString, function(err, db) {
 	test.equal(null, err);
 	if(err){
@@ -126,6 +128,7 @@ MongoClient.connect(databaseConnectionString, function(err, db) {
 	}
 	console.log("Successfully connected to MongoDB!");
 });
+*/
 
 //!!!!!!convert from object to database!!!!!!!!!!!!
 //check if stash is in database
@@ -223,8 +226,7 @@ app.get('/:pageType/:identifier', function (req, res, next) {
 
 //catch any http get method with a path that can not be resolved above
 app.get('*', function (req, res, next) {
-	console.log('Server received "' + req.method + '" request on the URL "' + req.url + '" --PAGE NOT FOUND');
-	//res.status(200).send(file404HTML);
+	console.log('Server received "' + req.method + '" request on the URL "' + req.url + '" --PAGE NOT FOUND -- sent contents of 404.html');
 	res.status(404).sendFile(path.join(__dirname, '404.html'));
 });
 /*
