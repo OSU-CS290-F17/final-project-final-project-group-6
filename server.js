@@ -39,7 +39,7 @@ allStashes.push(new Stash(4, 'Invisible Glasses', 'Help people find theirs (they
 allStashes.push(new Stash(5, 'Metallic Fruit', 'Because we so bored that anything would seem entertaining at this point.'));
 allStashes.push(new Stash(6, 'News', "Because we aren't scared enough as it is...  So lets talk about the News."));
 allStashes.push(new Stash(7, 'Pocket-sized Elephants', "Who would't want one?"));
-allStashes.push(new Stash(8, 'Starwars', 'Learn to use the force by going here.'));
+allStashes.push(new Stash(8, 'Star Wars', 'Learn to use the force by going here.'));
 allStashes.push(new Stash(9, 'Xbox', 'Share about one Bad4$$ Console!'));
 
 //TEMPORARY POST OBJECT -- remove once database is functional
@@ -196,6 +196,7 @@ app.get('/stash', function (req, res, next) {
 	/*
 	* add content of stash main page to "content" variable
 	*/
+	content = 'this will be a dynamically created post page for "stash"';
 	res.status(200).send(content);
 });
 
@@ -209,6 +210,7 @@ app.get('/:pageType/:identifier', function (req, res, next) {
 			/*
 			*add code to put site content into "content" variable for displaying all the posts in the current stash (identifier)
 			*/
+			content = 'this will be a dynamically created post page for "' + identifier + '"';
 			res.status(200).send(content);
 		}
 	}
@@ -218,10 +220,13 @@ app.get('/:pageType/:identifier', function (req, res, next) {
 			/*
 			*add code to put site content into "content" variable for displaying all the comments for the current post (identifier)
 			*/
+			content = 'this will be a dynamically created post page for "' + identifier + '"';
 			res.status(200).send(content);
 		}
 	}
-	next();
+	else{
+		next();
+	}
 });
 
 //catch any http get method with a path that can not be resolved above
