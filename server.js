@@ -10,7 +10,7 @@ var app = express();
 //read files
 var fileIndexJS = fs.readFileSync('index.js', 'utf8');
 var fileStyleCSS = fs.readFileSync('style.css', 'utf8');
-var fileChestImage = fs.readFileSync('site_photos/chest.jpg');
+var fileChestImage = fs.readFileSync('site_photos/chest.png');
 var fileNoTreasureImage = fs.readFileSync('site_photos/no_treasure.png');
 
 
@@ -175,13 +175,13 @@ app.get('/index.js', function (req, res, next) {
 	res.status(200).send(fileIndexJS);
 });
 
-app.get('/site_photos/chest.jpg', function (req, res, next) {
-	console.log('Server received "' + req.method + '" request on the URL "' + req.url + '" --chest.jpg sent');
-	res.type('image/jpeg').status(200).send(fileChestImage);
+app.get('/site_photos/chest.png', function (req, res, next) {
+	console.log('Server received "' + req.method + '" request on the URL "' + req.url + '" --chest.png sent');
+	res.type('image/png').status(200).send(fileChestImage);
 });
 
 app.get('/site_photos/no_treasure.png', function (req, res, next) {
-	console.log('Server received "' + req.method + '" request on the URL "' + req.url + '" --no_treasure.jpg sent');
+	console.log('Server received "' + req.method + '" request on the URL "' + req.url + '" --no_treasure.png sent');
 	res.type('image/png').status(200).send(fileNoTreasureImage);
 });
 
