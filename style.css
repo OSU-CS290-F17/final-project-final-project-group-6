@@ -174,13 +174,13 @@ a {
   background-color: #808080;
 }
 
-/* Search box in the side bar. */
-.search-box {
+/* Search box / user name box in the side bar. */
+.search-box, .user-name-box {
   color: white;
 }
 
-/* The search text field in the side bar. */
-.search-bar {
+/* The search / user name text field in the side bar. */
+.search-bar, #text-name-of-poster {
   display: inline-flex;
   width: 100%;
   min-width: 10px;
