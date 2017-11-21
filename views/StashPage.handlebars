@@ -1,0 +1,23 @@
+<body>
+
+  {{>header}}
+
+	<main>
+
+    <div class="content-container">
+			<section class="stashes">
+
+        {{#each stash}}
+          {{> stash}}
+        {{/each}}
+
+			</section>
+		</div>
+
+    {{>sidebarStash}}
+
+    {{>modalStash}}
+
+		</main>
+
+</body>

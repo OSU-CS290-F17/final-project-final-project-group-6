@@ -1,0 +1,46 @@
+  {{>header}}
+
+	<main>
+
+    <div class="content-container">
+      <section class="posts">
+
+        <div class="post" data-post-id="1" data-stash="Cars" data-user="BlueZebra">
+          <div class="post-box">
+            <div class="post-image-box">
+              <img src="https://auto.ndtvimg.com/car-images/medium/ferrari/gtc4lusso/ferrari-gtc4lusso.jpg?v=11">
+            </div>
+            <div class="post-title-box">
+              <a href="comments.html" class="post-title">Cool new car on the market.</a> <span class="post-tag">Cars</span><br>
+              <span class="post-user">by BlueZebra</span>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+      <section class="new-comment">
+        <div id="new-comment-box">
+          <div class="comment-input-box" id="new-comment-body-box">
+            <textarea id="comment-body-input" rows="4" cols="100"></textarea>
+          </div>
+          <div class="comment-button-container">
+            <button type="button" id="comment-button" class="accept-comment-button action-button">Add Comment</button>
+          </div>
+        </div>
+      </section>
+
+			<section class="comments">
+
+        {{#each comment}}
+          {{> comment}}
+        {{/each}}
+
+			</section>
+		</div>
+
+    {{>sidebarPost}}
+
+    {{>modalPost}}
+
+</main>
