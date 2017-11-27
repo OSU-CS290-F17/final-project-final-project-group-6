@@ -1,0 +1,22 @@
+{
+  "Cars": {
+    "stashId": "1",
+    "topic": "Cars",
+    "linkURL": "/",
+    "text": "A stash of everything car related"
+  },
+
+  "Ferrets": {
+    "stashId": "2",
+    "topic": "Ferrets",
+    "linkURL": "/",
+    "text": "Lets talk about Ferrets!"
+  },
+
+  "Star Wars": {
+    "stashId": "3",
+    "topic": "Star Wars",
+    "linkURL": "/",
+    "text": "A stash to fit all your Star Wars needs."
+  }
+}

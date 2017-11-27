@@ -1,3 +1,8 @@
+{{>header}}
+
+{{>sidebarStash}}
+
+{{#each stash}}
 <div class="stash" data-stash-id="{{stashId}}" data-topic="{{topic}}">
     <div class="stash-box">
       <div class="stash-title-box">
@@ -5,3 +10,6 @@
       </div>
     </div>
 </div>
+{{/each}}
+
+{{>modalStash}}
