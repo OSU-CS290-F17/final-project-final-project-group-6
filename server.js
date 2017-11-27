@@ -5,13 +5,22 @@ var path = require('path');
 var MongoClient = require('mongodb').MongoClient, test = require('assert');
 var handlebars = require('handlebars');
 var express = require('express');
+var expressHandlebars = require('express-handlebars');
 var app = express();
 
+//The default port for serve is 3117. However, the server will run with the port specified in the environment variable PORT if PORT is an environment variable
+var port = process.env.PORT || 3117;
+
+//set up express with handlebars
+app.engine('handlebars', expressHandlebars({ defaultLayout: 'mainLayout' }));
+app.set('view engine', 'handlebars');
+
+
 //read files
-var fileIndexJS = fs.readFileSync('index.js', 'utf8');
-var fileStyleCSS = fs.readFileSync('style.css', 'utf8');
-var fileChestImage = fs.readFileSync('site_photos/chest.png');
-var fileNoTreasureImage = fs.readFileSync('site_photos/no_treasure.png');
+//var fileIndexJS = fs.readFileSync('index.js', 'utf8');
+//var fileStyleCSS = fs.readFileSync('style.css', 'utf8');
+//var fileChestImage = fs.readFileSync('site_photos/chest.png');
+//var fileNoTreasureImage = fs.readFileSync('site_photos/no_treasure.png');
 
 
 
@@ -243,11 +252,7 @@ app.get('*', function (req, res, next) {
 
 
 
-//The default port for serve is 3117. However, the server will run with the port specified in the environment variable PORT if PORT is an environment variable
-var port = 3117; // Dustin:  I chose port 3117 because the engr server is haviing too many people from this class tryimng to use port 3000
-if(process.env.PORT){
-	port = process.env.PORT;
-}
+
 //start server
 app.listen(port, function () {
     /*
