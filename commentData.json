@@ -1,0 +1,21 @@
+{
+
+  "Comment1": {
+    "commentId": "1",
+    "user": "Tom",
+    "text": "I wrote a comment."
+  },
+
+  "Comment2": {
+    "commentId": "2",
+    "user": "Jane",
+    "text": "This is a comment.."
+  },
+
+  "Comment3": {
+    "commentId": "3",
+    "user": "Cat",
+    "text": "I hate comments."
+  }
+
+}

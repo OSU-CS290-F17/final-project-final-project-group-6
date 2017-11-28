@@ -10,6 +10,9 @@ var exphbs = require('express-handlebars');
 var bodyParser = require('body-parser');
 
 var stashData = require('./stashData');
+var postData = require('./postData');
+var commentData = require('./commentData');
+
 //read files
 //var fileIndexJS = fs.readFileSync('index.js', 'utf8');
 //var fileStyleCSS = fs.readFileSync('style.css', 'utf8');
@@ -23,6 +26,14 @@ app.use(bodyParser.json());
 
 app.get('/', function(req, res) {
 	res.status(200).render('stashPage', {stashes: stashData});
+})
+
+app.get('/posts', function(req, res) {
+	res.status(200).render('postPage', {posts: postData});
+})
+
+app.get('/comments', function(req, res) {
+	res.status(200).render('commentPage', {posts: [postData["Cat"]], comments: commentData});
 })
 
 //additional pages go here

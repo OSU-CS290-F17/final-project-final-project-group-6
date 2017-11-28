@@ -3,11 +3,11 @@
 <main>
 
   <div class="content-container">
-  
+
     <section class="posts">
-
-      {{> post}}
-
+      {{#each posts}}
+        {{> post}}
+      {{/each}}
     </section>
 
     <section class="new-comment">
@@ -20,7 +20,7 @@
         </div>
       </div>
     </section>
-    
+
     <section class="comments">
 
       {{#each comments}}
@@ -28,7 +28,7 @@
       {{/each}}
 
     </section>
-    
+
   </div>
 
   {{>sidebarPost}}

@@ -1,0 +1,19 @@
+{
+  "Cat": {
+    "postId": "1",
+    "topic": "Cats",
+    "user": "Bob",
+    "imageURL": "http://www.petmd.com/sites/default/files/petmd-cat-happy-13.jpg",
+    "linkURL": "/",
+    "title": "This is a cat."
+  },
+
+  "Luke": {
+    "postId": "2",
+    "topic": "Star wars",
+    "user": "Fred",
+    "imageURL": "https://images.moviepilot.com/image/upload/c_fill,h_470,q_auto:good,w_620/gpxjnc4ebydiyavas1cm.jpg",
+    "linkURL": "/",
+    "title": "This is a Luke."
+  }
+}

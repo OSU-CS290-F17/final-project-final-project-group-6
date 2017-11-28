@@ -34,6 +34,7 @@ if(postSubmitButton)
 
   // This function builds a post.
   function buildPost() {
+    console.log("New post created.");
     //*************************************************************
     // We send the body of our post as a request to the server.
     // (can start by just creating a client side handlebars object.)
@@ -49,7 +50,6 @@ if(postSubmitButton)
       alert("Set the title before attempting to create a post.");
     }
     else {
-      console.log("New post created.");
       buildPost();
       respondToCloseClick();
     }
@@ -126,10 +126,11 @@ if(stashSubmitButton)
     }
   });
 }
+
 //=================== SUBMIT COMMENT ================================//
 
 var commentButton = document.getElementById("comment-button");
-var newCommentBox = document.getElementById("new-comment-body-box");
+var newCommentBox = document.getElementById("comment-body-input");
 
 // This function sends a request to the server to create a new comment.
 function requestCreateComment() {
@@ -138,15 +139,18 @@ function requestCreateComment() {
   // We send the body of our comment as a request to the server.
   // (can start by just creating a client side handlebars object.)
   //*************************************************************
+  newCommentBox.value = "";
 }
 
 // User clicks on the comment button.
-commentButton.addEventListener("click", function() {
-  // Don't create a new comment if the text field is empty.
-  if(newCommentBox.value !== " ") {
-    requestCreateComment();
-  }
-});
+if(commentButton) {
+  commentButton.addEventListener("click", function() {
+    // Don't create a new comment if the text field is empty.
+    if(newCommentBox.value !== "") {
+      requestCreateComment();
+    }
+  });
+}
 
 //======================== SEARCH ===================================//
 
@@ -169,20 +173,22 @@ function requestSearchPost() {
 }
 
 // User clicks on search button.
-searchButton.addEventListener("click", function() {
-  if(searchPost) {
-    // Don't search if the text field is empty.s
-    if(searchPost.value !== "") {
-      requestSearchPost();
+if(searchButton) {
+  searchButton.addEventListener("click", function() {
+    if(searchPost) {
+      // Don't search if the text field is empty.s
+      if(searchPost.value !== "") {
+        requestSearchPost();
+      }
     }
-  }
-  if(searchStash) {
-    // Don't search if the text field is empty.s
-    if(searchStash.value !== "") {
-      requestSearchStash();
+    if(searchStash) {
+      // Don't search if the text field is empty.s
+      if(searchStash.value !== "") {
+        requestSearchStash();
+      }
     }
-  }
-});
+  });
+}
 
 //==================== WAITING FOR SERVER RESPONSES =======================//
 //*************************************************************
