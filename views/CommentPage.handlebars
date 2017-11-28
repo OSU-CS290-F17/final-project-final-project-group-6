@@ -3,6 +3,7 @@
 <main>
 
   <div class="content-container">
+  
     <section class="posts">
 
       {{> post}}
@@ -19,15 +20,16 @@
         </div>
       </div>
     </section>
+    
+    <section class="comments">
 
-		<section class="comments">
-
-      {{#each comment}}
+      {{#each comments}}
         {{> comment}}
       {{/each}}
 
-		</section>
-	</div>
+    </section>
+    
+  </div>
 
   {{>sidebarPost}}
 

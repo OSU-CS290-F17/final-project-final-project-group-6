@@ -5,13 +5,22 @@ var path = require('path');
 var MongoClient = require('mongodb').MongoClient, test = require('assert');
 var handlebars = require('handlebars');
 var express = require('express');
+var expressHandlebars = require('express-handlebars');
 var app = express();
 
+//The default port for serve is 3117. However, the server will run with the port specified in the environment variable PORT if PORT is an environment variable
+var port = process.env.PORT || 3117;
+
+//set up express with handlebars
+app.engine('handlebars', expressHandlebars({ defaultLayout: 'mainLayout' }));
+app.set('view engine', 'handlebars');
+
+
 //read files
-var fileIndexJS = fs.readFileSync('index.js', 'utf8');
-var fileStyleCSS = fs.readFileSync('style.css', 'utf8');
-var fileChestImage = fs.readFileSync('site_photos/chest.png');
-var fileNoTreasureImage = fs.readFileSync('site_photos/no_treasure.png');
+//var fileIndexJS = fs.readFileSync('index.js', 'utf8');
+//var fileStyleCSS = fs.readFileSync('style.css', 'utf8');
+//var fileChestImage = fs.readFileSync('site_photos/chest.png');
+//var fileNoTreasureImage = fs.readFileSync('site_photos/no_treasure.png');
 
 
 
@@ -39,7 +48,7 @@ allStashes.push(new Stash(4, 'Invisible Glasses', 'Help people find theirs (they
 allStashes.push(new Stash(5, 'Metallic Fruit', 'Because we so bored that anything would seem entertaining at this point.'));
 allStashes.push(new Stash(6, 'News', "Because we aren't scared enough as it is...  So lets talk about the News."));
 allStashes.push(new Stash(7, 'Pocket-sized Elephants', "Who would't want one?"));
-allStashes.push(new Stash(8, 'Starwars', 'Learn to use the force by going here.'));
+allStashes.push(new Stash(8, 'Star Wars', 'Learn to use the force by going here.'));
 allStashes.push(new Stash(9, 'Xbox', 'Share about one Bad4$$ Console!'));
 
 //TEMPORARY POST OBJECT -- remove once database is functional
@@ -196,6 +205,7 @@ app.get('/stash', function (req, res, next) {
 	/*
 	* add content of stash main page to "content" variable
 	*/
+	content = 'this will be a dynamically created post page for "stash"';
 	res.status(200).send(content);
 });
 
@@ -209,6 +219,7 @@ app.get('/:pageType/:identifier', function (req, res, next) {
 			/*
 			*add code to put site content into "content" variable for displaying all the posts in the current stash (identifier)
 			*/
+			content = 'this will be a dynamically created post page for "' + identifier + '"';
 			res.status(200).send(content);
 		}
 	}
@@ -218,10 +229,13 @@ app.get('/:pageType/:identifier', function (req, res, next) {
 			/*
 			*add code to put site content into "content" variable for displaying all the comments for the current post (identifier)
 			*/
+			content = 'this will be a dynamically created post page for "' + identifier + '"';
 			res.status(200).send(content);
 		}
 	}
-	next();
+	else{
+		next();
+	}
 });
 
 //catch any http get method with a path that can not be resolved above
@@ -238,11 +252,7 @@ app.get('*', function (req, res, next) {
 
 
 
-//The default port for serve is 3117. However, the server will run with the port specified in the environment variable PORT if PORT is an environment variable
-var port = 3117; // Dustin:  I chose port 3117 because the engr server is haviing too many people from this class tryimng to use port 3000
-if(process.env.PORT){
-	port = process.env.PORT;
-}
+
 //start server
 app.listen(port, function () {
     /*
