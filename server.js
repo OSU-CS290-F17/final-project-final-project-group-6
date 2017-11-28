@@ -6,7 +6,6 @@ var MongoClient = require('mongodb').MongoClient, test = require('assert');
 var handlebars = require('handlebars');
 var express = require('express');
 var app = express();
-var handlebars = require('handlebars');
 var exphbs = require('express-handlebars');
 var bodyParser = require('body-parser');
 
@@ -25,6 +24,8 @@ app.use(bodyParser.json());
 app.get('/', function(req, res) {
 	res.status(200).render('stashPage', {stashes: stashData});
 })
+
+//additional pages go here
 
 app.use(express.static('public'));
 
