@@ -34,7 +34,10 @@ if(postSubmitButton)
 
   // This function builds a post.
   function buildPost() {
-    //We will send to server here.
+    //*************************************************************
+    // We send the body of our post as a request to the server.
+    // (can start by just creating a client side handlebars object.)
+    //*************************************************************
   }
 
   // This function creates a post if the title field is set.
@@ -90,7 +93,10 @@ if(stashSubmitButton)
 
   // This function builds a stash.
   function buildStash() {
-    //We will send to server here.
+    //*************************************************************
+    // We send the body of our stash as a request to the server.
+    // (can start by just creating a client side handlebars object.)
+    //*************************************************************
   }
 
   // This function creates a stash if the title field is set.
@@ -120,10 +126,31 @@ if(stashSubmitButton)
     }
   });
 }
+//=================== SUBMIT COMMENT ================================//
+
+var commentButton = document.getElementById("comment-button");
+var newCommentBox = document.getElementById("new-comment-body-box");
+
+// This function sends a request to the server to create a new comment.
+function requestCreateComment() {
+  console.log("New comment created.");
+  //*************************************************************
+  // We send the body of our comment as a request to the server.
+  // (can start by just creating a client side handlebars object.)
+  //*************************************************************
+}
+
+// User clicks on the comment button.
+commentButton.addEventListener("click", function() {
+  // Don't create a new comment if the text field is empty.
+  if(newCommentBox.value !== " ") {
+    requestCreateComment();
+  }
+});
 
 //======================== SEARCH ===================================//
 
-console.log("Define variables for searching posts/stashes.")
+console.log("Define variables for searching posts/stashes.");
 var searchButton = document.getElementById("id-search-button");
 var searchStash = document.getElementById("search-stash");
 var searchPost = document.getElementById("search-post");
@@ -132,13 +159,13 @@ var searchPost = document.getElementById("search-post");
 // This function sends a request to the server to find a stash that contains
 // the given text.
 function requestSearchStash() {
-  console.log("We are searching for a stash.")
+  console.log("We are searching for a stash.");
 }
 
 // This function sends a request to the server to find a post that contains
 // the given text.
 function requestSearchPost() {
-  console.log("We are searching for a post.")
+  console.log("We are searching for a post.");
 }
 
 // User clicks on search button.
@@ -156,3 +183,10 @@ searchButton.addEventListener("click", function() {
     }
   }
 });
+
+//==================== WAITING FOR SERVER RESPONSES =======================//
+//*************************************************************
+// This is where we setup functions waiting for a response from the server.
+// This is where we should REALLY be creating the handlebars object once we
+// get a status 200 code back from one of our above requests.
+//*************************************************************
