@@ -18,5 +18,12 @@
     "topic": "Star Wars",
     "linkURL": "/",
     "text": "A stash to fit all your Star Wars needs."
+  },
+
+  "Cats": {
+    "stashId": "4",
+    "topic": "Cats",
+    "linkURL": "/",
+    "text": "For feline friend fanciers."
   }
 }

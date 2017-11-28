@@ -23,13 +23,13 @@ app.set('view engine', 'handlebars');
 app.use(bodyParser.json());
 
 app.get('/', function(req, res) {
-	res.status(200).render('partials/stash', {stash: stashData});
+	res.status(200).render('stashPage', {stashes: stashData});
 })
 
 app.use(express.static('public'));
 
 app.get('*', function(req, res) {
-	res.status(404).sendFile(path.join(__dirname, 'public', '404.html'));
+	res.status(404).render('404Page');
 });
 
 ////TEMPORARY STASH OBJECT -- remove once database is functional
