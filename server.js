@@ -120,7 +120,7 @@ app.get('/stash/:stashName/:postId', function (req, res, next) {
 //catch any http get method with a path that can not be resolved above
 app.get('*', function (req, res, next) {
 	console.log('Server received "' + req.method + '" request on the URL "' + req.url + '" --PAGE NOT FOUND -- sent contents of 404.html');
-	res.status(404).render(/*TEMPLATE NAME*/);
+	res.status(404).render('404Page');
 });
 /*
 *
