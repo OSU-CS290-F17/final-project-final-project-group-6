@@ -65,8 +65,14 @@ if(postSubmitButton)
       alert("Set the title before attempting to create a post.");
     }
     else {
-      //buildPost(postId, topic, stashNameInput.value, postPhotoInput.value, linkURL, postTextInput.value);
-      buildPost("5", "Cats", "NAME", "http://www.petmd.com/sites/default/files/what-does-it-mean-when-cat-wags-tail.jpg", "#",  "This is a cat");
+      // We create the post and fill it with relavent data.
+      var id = "0";
+      var stash = "Cats";
+      var userName = document.getElementById("text-name-of-poster").value;
+      if(userName == "") {
+        userName = "Anonymous";
+      }
+      buildPost(id, stash, userName, postPhotoInput.value, "#",  postTextInput.value);
       respondToCloseClick();
     }
   }
