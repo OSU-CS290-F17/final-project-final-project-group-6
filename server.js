@@ -2,7 +2,7 @@ console.log("Server JavaScript start.");
 var fs = require('fs');
 var path = require('path');
 //var http = require('http') //we may not need the HTTP module
-var MongoClient = require('mongodb').MongoClient, test = require('assert');
+var MongoClient = require('mongodb').MongoClient,
 var handlebars = require('handlebars');
 var express = require('express');
 var app = express();
@@ -42,27 +42,7 @@ app.set('view engine', 'handlebars');
 // ///////////////////////////////////////////////
 // ////*Code Related to connecting to MongoDB*////
 // ///////////////////////////////////////////////
-// //pull password from database from a special file in parent directory of current directory
-// /*
-// var databasePassword = fs.readFileSync('../database-pass.txt', 'utf8')
-// var databaseConnectionString = "mongodb://HauntedWAMPUS:" + databasePassword + "@cluster0-shard-00-00-pdrgi.mongodb.net:27017,cluster0-shard-00-01-pdrgi.mongodb.net:27017,cluster0-shard-00-02-pdrgi.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin"
-// */
-// /*
-// *
-// *
-// *insert MongoDB code here (the "MongoClient" variable
-// *
-// *
-// */
-// /*
-// MongoClient.connect(databaseConnectionString, function(err, db) {
-// 	test.equal(null, err);
-// 	if(err){
-// 		throw err;
-// 	}
-// 	console.log("Successfully connected to MongoDB!");
-// });
-// */
+// 
 //
 
 
