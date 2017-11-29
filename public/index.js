@@ -33,12 +33,27 @@ if(postSubmitButton)
   }
 
   // This function builds a post.
-  function buildPost() {
+  function buildPost(postId, topic, user, imageURL, linkURL, title) {
     console.log("New post created.");
     //*************************************************************
     // We send the body of our post as a request to the server.
     // (can start by just creating a client side handlebars object.)
     //*************************************************************
+    var context = {
+      postId: postId,
+      topic: topic,
+      user: user,
+      imageURL: imageURL,
+      linkURL: linkURL,
+      title: title
+    };
+
+    var postHTML = Handlebars.templates.post(context);
+
+    var postsContainer = document.querySelector('#id-posts');
+    postsContainer.insertAdjacentHTML('beforeend', postHTML);
+
+    return postHTML;
   }
 
   // This function creates a post if the title field is set.
@@ -50,7 +65,14 @@ if(postSubmitButton)
       alert("Set the title before attempting to create a post.");
     }
     else {
-      buildPost();
+      // We create the post and fill it with relavent data.
+      var id = "0";
+      var stash = "Cats";
+      var userName = document.getElementById("text-name-of-poster").value;
+      if(userName == "") {
+        userName = "Anonymous";
+      }
+      buildPost(id, stash, userName, postPhotoInput.value, "#",  postTextInput.value);
       respondToCloseClick();
     }
   }
