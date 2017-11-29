@@ -4,7 +4,7 @@
 
   <div class="content-container">
 
-    <section class="posts">
+    <section class="posts", id="id-posts">
       {{#each posts}}
         {{> post}}
       {{/each}}
@@ -21,7 +21,7 @@
       </div>
     </section>
 
-    <section class="comments">
+    <section class="comments", id="id-comments">
 
       {{#each comments}}
         {{> comment}}
