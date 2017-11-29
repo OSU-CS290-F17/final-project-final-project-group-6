@@ -8,6 +8,7 @@ var express = require('express');
 var app = express();
 var exphbs = require('express-handlebars');
 var bodyParser = require('body-parser');
+var port = process.env.PORT || 3177;
 
 var stashData = require('./stashData');
 var postData = require('./postData');
@@ -16,32 +17,11 @@ var commentData = require('./commentData');
 app.engine('handlebars', exphbs({defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
 
-// app.use(bodyParser.json());
-
-// app.get('/', function(req, res) {
-	// res.status(200).render('stashPage', {stashes: stashData});
-// })
-
-// app.get('/posts', function(req, res) {
-	// res.status(200).render('postPage', {posts: postData});
-// })
-
-// app.get('/comments', function(req, res) {
-	// res.status(200).render('commentPage', {posts: [postData["Cat"]], comments: commentData});
-// })
-
-//additional pages go here
-
-// app.use(express.static('public'));
-
-// app.get('*', function(req, res) {
-	// res.status(404).render('404Page');
-// });
 
 
-// ///////////////////////////////////////////////
-// ////*Code Related to connecting to MongoDB*////
-// ///////////////////////////////////////////////
+///////////////////////////////////////////////
+////*Code Related to connecting to MongoDB*////
+///////////////////////////////////////////////
 // 
 //
 
@@ -131,11 +111,7 @@ app.get('*', function (req, res, next) {
 
 
 
-// //The default port for serve is 3117. However, the server will run with the port specified in the environment variable PORT if PORT is an environment variable
-var port = 3117; // Dustin:  I chose port 3117 because the engr server is haviing too many people from this class tryimng to use port 3000
-if(process.env.PORT){
-	port = process.env.PORT;
-}
+
 //start server
 app.listen(port, function () {
     /*
