@@ -50,6 +50,15 @@ if(postSubmitButton)
     var postsContainer = document.querySelector('#id-posts');
     postsContainer.insertAdjacentHTML('beforeend', postHTML);
 
+    // If the post has no image remove the image box.
+    var brandNewPost = document.getElementById('id-posts').lastChild.previousSibling;
+    var newImageBox = brandNewPost.getElementsByTagName('div');
+    var newImage = brandNewPost.getElementsByTagName('img');
+    newImage[0].onerror = function() {
+      // image not found. Remove the image box.
+      newImageBox[1].remove();
+    };
+
     return postHTML;
   }
 

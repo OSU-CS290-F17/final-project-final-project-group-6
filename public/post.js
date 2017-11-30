@@ -9,7 +9,7 @@ templates['post'] = template({"compiler":[7,">= 4.0.0"],"main":function(containe
     + alias4(((helper = (helper = helpers.topic || (depth0 != null ? depth0.topic : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"topic","hash":{},"data":data}) : helper)))
     + "\" data-user=\""
     + alias4(((helper = (helper = helpers.user || (depth0 != null ? depth0.user : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"user","hash":{},"data":data}) : helper)))
-    + "\">\r\n  <div class=\"post-box\">\r\n    <div class=\"post-image-box\">\r\n      <img src=\""
+    + "\">\r\n  <div class=\"post-box\">\r\n    <div class=\"post-image-box\">\r\n      <img id=\"id-post-image\" src=\""
     + alias4(((helper = (helper = helpers.imageURL || (depth0 != null ? depth0.imageURL : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"imageURL","hash":{},"data":data}) : helper)))
     + "\">\r\n    </div>\r\n    <div class=\"post-title-box\">\r\n      <a href=\""
     + alias4(((helper = (helper = helpers.linkURL || (depth0 != null ? depth0.linkURL : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"linkURL","hash":{},"data":data}) : helper)))
