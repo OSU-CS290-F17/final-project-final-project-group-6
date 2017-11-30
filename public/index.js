@@ -67,12 +67,11 @@ if(postSubmitButton)
     else {
       // We create the post and fill it with relavent data.
       var id = "0";
-      var stash = "Cats";
+      var stash = "Generic";
+      var linkURL = "#";
       var userName = document.getElementById("text-name-of-poster").value;
-      if(userName == "") {
-        userName = "Anonymous";
-      }
-      buildPost(id, stash, userName, postPhotoInput.value, "#",  postTextInput.value);
+      if(userName == "") {userName = "Anonymous";}
+      buildPost(id, stash, userName, postPhotoInput.value, linkURL,  postTextInput.value);
       respondToCloseClick();
     }
   }
@@ -114,11 +113,25 @@ if(stashSubmitButton)
   }
 
   // This function builds a stash.
-  function buildStash() {
+  function buildStash(stashId, topic, linkURL, text) {
+    console.log("New stash created.");
     //*************************************************************
     // We send the body of our stash as a request to the server.
     // (can start by just creating a client side handlebars object.)
     //*************************************************************
+    var context = {
+      stashId: stashId,
+      topic: topic,
+      linkURL: linkURL,
+      text: text
+    };
+
+    var stashHTML = Handlebars.templates.stash(context);
+
+    var stashesContainer = document.querySelector('#id-stashes');
+    stashesContainer.insertAdjacentHTML('beforeend', stashHTML);
+
+    return stashHTML;
   }
 
   // This function creates a stash if the title field is set.
@@ -130,8 +143,12 @@ if(stashSubmitButton)
       alert("Set the title before attempting to create a stash.");
     }
     else {
-      console.log("New stash created.");
-      buildStash();
+      // We create the stash and fill it with relavent data.
+      var id = "0";
+      var linkURL = "#";
+      var name = document.getElementById('stash-name-input');;
+      var description = document.getElementById('stash-description-input');;
+      buildStash(id, name, linkURL, description);
       respondToCloseClick();
     }
   }
@@ -155,13 +172,24 @@ var commentButton = document.getElementById("comment-button");
 var newCommentBox = document.getElementById("comment-body-input");
 
 // This function sends a request to the server to create a new comment.
-function requestCreateComment() {
+function buildComment(commentId, user, text) {
   console.log("New comment created.");
   //*************************************************************
   // We send the body of our comment as a request to the server.
   // (can start by just creating a client side handlebars object.)
   //*************************************************************
-  newCommentBox.value = "";
+  var context = {
+    commentId: commentId,
+    user: user,
+    text: text
+  };
+
+  var commentHTML = Handlebars.templates.comment(context);
+
+  var commentsContainer = document.querySelector('#id-comments');
+  commentsContainer.insertAdjacentHTML('beforeend', commentHTML);
+
+  return commentHTML;
 }
 
 // User clicks on the comment button.
@@ -169,7 +197,13 @@ if(commentButton) {
   commentButton.addEventListener("click", function() {
     // Don't create a new comment if the text field is empty.
     if(newCommentBox.value !== "") {
-      requestCreateComment();
+      // We create the comment and fill it with relavent data.
+      var id = "0";
+      var textField = document.getElementById("comment-body-input").value;
+      var userName = document.getElementById("text-name-of-poster").value;
+      if(userName == "") {userName = "Anonymous";}
+      buildComment(id, userName, textField);
+      newCommentBox.value = "";
     }
   });
 }
