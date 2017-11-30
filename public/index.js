@@ -35,10 +35,7 @@ if(postSubmitButton)
   // This function builds a post.
   function buildPost(postId, topic, user, imageURL, linkURL, title) {
     console.log("New post created.");
-    //*************************************************************
-    // We send the body of our post as a request to the server.
-    // (can start by just creating a client side handlebars object.)
-    //*************************************************************
+
     var context = {
       postId: postId,
       topic: topic,
@@ -115,10 +112,7 @@ if(stashSubmitButton)
   // This function builds a stash.
   function buildStash(stashId, topic, linkURL, text) {
     console.log("New stash created.");
-    //*************************************************************
-    // We send the body of our stash as a request to the server.
-    // (can start by just creating a client side handlebars object.)
-    //*************************************************************
+
     var context = {
       stashId: stashId,
       topic: topic,
@@ -138,16 +132,16 @@ if(stashSubmitButton)
   // Otherwise gives user an error message.
   function respondToAddClick() {
     // Check to make sure all fields are set.
-    if(!stashNameInput.value) {
-      console.log("Post failed to create.");
-      alert("Set the title before attempting to create a stash.");
+    if(!stashNameInput.value || !stashDescriptionInput.value) {
+      console.log("Stash failed to create.");
+      alert("Fill all fields before attempting to create a stash.");
     }
     else {
       // We create the stash and fill it with relavent data.
       var id = "0";
       var linkURL = "#";
-      var name = document.getElementById('stash-name-input');;
-      var description = document.getElementById('stash-description-input');;
+      var name = document.getElementById('stash-name-input').value;
+      var description = document.getElementById('stash-description-input').value;
       buildStash(id, name, linkURL, description);
       respondToCloseClick();
     }
@@ -174,10 +168,7 @@ var newCommentBox = document.getElementById("comment-body-input");
 // This function sends a request to the server to create a new comment.
 function buildComment(commentId, user, text) {
   console.log("New comment created.");
-  //*************************************************************
-  // We send the body of our comment as a request to the server.
-  // (can start by just creating a client side handlebars object.)
-  //*************************************************************
+
   var context = {
     commentId: commentId,
     user: user,
