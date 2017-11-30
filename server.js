@@ -2,7 +2,7 @@ console.log("Server JavaScript start.");
 var fs = require('fs');
 var path = require('path');
 //var http = require('http') //we may not need the HTTP module
-var MongoClient = require('mongodb').MongoClient,
+var MongoClient = require('mongodb').MongoClient;
 var handlebars = require('handlebars');
 var express = require('express');
 var app = express();
@@ -17,12 +17,29 @@ var commentData = require('./commentData');
 app.engine('handlebars', exphbs({defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
 
+///////////////////////////////////////////////////////////
+//// DELETE THIS WHEN WE HAVE THE SERVER WORKING CORRECTLY.
+///////////////////////////////////////////////////////////
+app.get('/', function(req, res) {
+	res.status(200).render('stashPage', {stashes: stashData});
+})
+
+app.get('/posts', function(req, res) {
+	res.status(200).render('postPage', {posts: postData});
+})
+
+app.get('/comments', function(req, res) {
+	res.status(200).render('commentPage', {posts: [postData["Cat"]], comments: commentData});
+})
+//////////////////////////////////////////////////////////
+// /DELETE END.
+//////////////////////////////////////////////////////////
 
 
 ///////////////////////////////////////////////
 ////*Code Related to connecting to MongoDB*////
 ///////////////////////////////////////////////
-// 
+//
 //
 
 
@@ -70,7 +87,7 @@ app.get('/', function (req, res, next) {
 
 app.get('/stash', function (req, res, next) {
 	console.log('Server received "' + req.method + '" request on the URL "' + req.url + '" --page found');
-	var content = {stashes: /*GET ALL STASHES FROM THE SERVERS AND PUT THEM HERE*/};
+	//var content = {stashes: /*GET ALL STASHES FROM THE SERVERS AND PUT THEM HERE*/};
 	res.status(200).render('stashPage', content);
 });
 
@@ -78,22 +95,22 @@ app.get('/stash/:stashName', function (req, res, next) {
 	var stashName = req.params.stashName;
 	if(isStashNameInDatabase(stashName)){
 		console.log('Server received "' + req.method + '" request on the URL "' + req.url + '" --page found');
-		var content = {posts: /*GET THIS STASH's POSTS FROM THE DATABASE AND PUT THEM HERE*/};
+		//var content = {posts: /*GET THIS STASH's POSTS FROM THE DATABASE AND PUT THEM HERE*/};
 		res.status(200).render('postPage', content);
 	}
 });
 
-app.get('/stash/:stashName/:postId', function (req, res, next) {
-	var stashName = req.params.stashName;
-	var postId = req.params.postId;
-	if(isStashNameInDatabase(stashName)){
-		if(isPostInDatabase(stashName, postId){
-			console.log('Server received "' + req.method + '" request on the URL "' + req.url + '" --page found');
-			var content = /*JSON FORM OF CORRECT DYNAMIC CONTENT FOR COMMENT PAGE*/;
-			res.status(200).render('commentPage', content);
-		}
-	}
-});
+// app.get('/stash/:stashName/:postId', function (req, res, next) {
+// 	var stashName = req.params.stashName;
+// 	var postId = req.params.postId;
+// 	if(isStashNameInDatabase(stashName)){
+// 		if(isPostInDatabase(stashName, postId){
+// 			console.log('Server received "' + req.method + '" request on the URL "' + req.url + '" --page found');
+// 			var content = /*JSON FORM OF CORRECT DYNAMIC CONTENT FOR COMMENT PAGE*/;
+// 			res.status(200).render('commentPage', content);
+// 		}
+// 	}
+// });
 
 
 
