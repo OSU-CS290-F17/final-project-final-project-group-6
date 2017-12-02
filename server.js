@@ -22,15 +22,19 @@ app.set('view engine', 'handlebars');
 ///////////////////////////////////////////////////////////
 app.get('/', function(req, res) {
 	res.status(200).render('stashPage', {stashes: stashData});
-})
+});
 
 app.get('/posts', function(req, res) {
 	res.status(200).render('postPage', {posts: postData});
-})
+});
 
 app.get('/comments', function(req, res) {
 	res.status(200).render('commentPage', {posts: [postData["Cat"]], comments: commentData});
-})
+});
+
+app.post('*', function (req, res, next) {
+	res.status.send(req.body);
+});
 //////////////////////////////////////////////////////////
 // /DELETE END.
 //////////////////////////////////////////////////////////
