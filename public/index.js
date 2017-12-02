@@ -32,6 +32,36 @@ if(postSubmitButton)
     postPhotoInput.value = null;
   }
 
+  // This function sends a requests to the server to build a post.
+  function requestPost(postId, topic, user, imageURL, linkURL, title) {
+    var postRequest = new XMLHttpRequest();
+    var postURL = "/posts/addPost";
+    postRequest.open('POST', postURL);
+
+    var postObj = {
+      postId: postId,
+      topic: topic,
+      user: user,
+      imageURL: imageURL,
+      linkURL: linkURL,
+      title: title
+    };
+
+    var requestBody = JSON.stringify(postObj);
+    postRequest.setRequestHeader('Content-Type', 'application/json');
+
+    postRequest.addEventListener('load', function (event) {
+      if (event.target.status !== 200) {
+        alert("Error storing post in database:\n\n\n" + event.target.response);
+      } else {
+        buildPost(postId, topic, user, imageURL, linkURL, title);
+      }
+    });
+
+    console.log("postRequest:", requestBody);
+    postRequest.send(requestBody);
+  }
+
   // This function builds a post.
   function buildPost(postId, topic, user, imageURL, linkURL, title) {
     console.log("New post created.");
@@ -77,7 +107,7 @@ if(postSubmitButton)
       var linkURL = "#";
       var userName = document.getElementById("text-name-of-poster").value;
       if(userName == "") {userName = "Anonymous";}
-      buildPost(id, stash, userName, postPhotoInput.value, linkURL,  postTextInput.value);
+      requestPost(id, stash, userName, postPhotoInput.value, linkURL,  postTextInput.value);
       respondToCloseClick();
     }
   }
@@ -118,6 +148,34 @@ if(stashSubmitButton)
     stashDescriptionInput.value = null;
   }
 
+  // This function sends a requests to the server to build a stash.
+  function requestStash(stashId, topic, linkURL, text) {
+    var postRequest = new XMLHttpRequest();
+    var postURL = "/addStash";
+    postRequest.open('POST', postURL);
+
+    var postObj = {
+      stashId: stashId,
+      topic: topic,
+      linkURL: linkURL,
+      text: text
+    };
+
+    var requestBody = JSON.stringify(postObj);
+    postRequest.setRequestHeader('Content-Type', 'application/json');
+
+    postRequest.addEventListener('load', function (event) {
+      if (event.target.status !== 200) {
+        alert("Error storing stash in database:\n\n\n" + event.target.response);
+      } else {
+        buildStash(stashId, topic, linkURL, text);
+      }
+    });
+
+    console.log("postRequest:", requestBody);
+    postRequest.send(requestBody);
+  }
+
   // This function builds a stash.
   function buildStash(stashId, topic, linkURL, text) {
     console.log("New stash created.");
@@ -131,6 +189,7 @@ if(stashSubmitButton)
 
     var stashHTML = Handlebars.templates.stash(context);
 
+    //Insert the stash into the DOM.
     var stashesContainer = document.querySelector('#id-stashes');
     stashesContainer.insertAdjacentHTML('beforeend', stashHTML);
 
@@ -151,7 +210,7 @@ if(stashSubmitButton)
       var linkURL = "#";
       var name = document.getElementById('stash-name-input').value;
       var description = document.getElementById('stash-description-input').value;
-      buildStash(id, name, linkURL, description);
+      requestStash(id, name, linkURL, description);
       respondToCloseClick();
     }
   }
@@ -174,7 +233,34 @@ if(stashSubmitButton)
 var commentButton = document.getElementById("comment-button");
 var newCommentBox = document.getElementById("comment-body-input");
 
-// This function sends a request to the server to create a new comment.
+// This function sends a requests to the server to build a comment.
+function requestComment(commentId, user, text) {
+  var postRequest = new XMLHttpRequest();
+  var postURL = "/comments/addComment";
+  postRequest.open('POST', postURL);
+
+  var postObj = {
+    commentId: commentId,
+    user: user,
+    text: text
+  };
+
+  var requestBody = JSON.stringify(postObj);
+  postRequest.setRequestHeader('Content-Type', 'application/json');
+
+  postRequest.addEventListener('load', function (event) {
+    if (event.target.status !== 200) {
+      alert("Error storing comment in database:\n\n\n" + event.target.response);
+    } else {
+      buildComment(commentId, user, text);
+    }
+  });
+
+  console.log("postRequest:", requestBody);
+  postRequest.send(requestBody);
+}
+
+// This function builds a new comment.
 function buildComment(commentId, user, text) {
   console.log("New comment created.");
 
@@ -202,7 +288,7 @@ if(commentButton) {
       var textField = document.getElementById("comment-body-input").value;
       var userName = document.getElementById("text-name-of-poster").value;
       if(userName == "") {userName = "Anonymous";}
-      buildComment(id, userName, textField);
+      requestComment(id, userName, textField);
       newCommentBox.value = "";
     }
   });
@@ -245,10 +331,3 @@ if(searchButton) {
     }
   });
 }
-
-//==================== WAITING FOR SERVER RESPONSES =======================//
-//*************************************************************
-// This is where we setup functions waiting for a response from the server.
-// This is where we should REALLY be creating the handlebars object once we
-// get a status 200 code back from one of our above requests.
-//*************************************************************

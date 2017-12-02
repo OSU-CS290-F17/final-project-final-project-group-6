@@ -17,6 +17,8 @@ var commentData = require('./commentData');
 app.engine('handlebars', exphbs({defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
 
+app.use(bodyParser.json());
+
 ///////////////////////////////////////////////////////////
 //// DELETE THIS WHEN WE HAVE THE SERVER WORKING CORRECTLY.
 ///////////////////////////////////////////////////////////
@@ -32,9 +34,54 @@ app.get('/comments', function(req, res) {
 	res.status(200).render('commentPage', {posts: [postData["Cat"]], comments: commentData});
 });
 
-app.post('*', function (req, res, next) {
-	res.status.send(req.body);
+// We have gotten a request to add a stash. Respond.
+app.post('/addStash', function (req, res, next) {
+
+	var postObj = {
+		stashId: req.body.stashId,
+		topic: req.body.topic,
+		linkURL: req.body.linkURL,
+		text: req.body.text
+	};
+
+	console.log("\n\nServer got POST request:\n", postObj, "\nResponding with status code 200.");
+	res.status(200).send("Success");
 });
+
+// We have gotten a request to add a post. Respond.
+app.post('/posts/addPost', function (req, res, next) {
+
+	var postObj = {
+		postId: req.body.postId,
+		topic: req.body.topic,
+		user: req.body.user,
+		imageURL: req.body.imageURL,
+		linkURL: req.body.linkURL,
+		title: req.body.title
+	};
+
+	console.log("\n\nServer got POST request:\n", postObj, "\nResponding with status code 200.");
+	res.status(200).send("Success");
+});
+
+// We have gotten a request to add a comment. Respond.
+app.post('/comments/addComment', function (req, res, next) {
+
+	var postObj = {
+		commentId: req.body.commentId,
+    user: req.body.user,
+    text: req.body.text
+  };
+
+	console.log("\n\nServer got POST request:\n", postObj, "\nResponding with status code 200.");
+	res.status(200).send("Success");
+});
+
+// We have gotten an unknown request to add something. Respond.
+app.post('*', function (req, res, next) {
+	res.status(404).send("\n\nServer got POST request:\nPOST to unknown path.\nResponding with status code 404.");
+});
+
 //////////////////////////////////////////////////////////
 // /DELETE END.
 //////////////////////////////////////////////////////////
