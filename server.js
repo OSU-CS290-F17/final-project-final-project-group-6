@@ -193,7 +193,7 @@ MongoClient.connect(mongoURL, function (err, db) {
   if (err) {
     throw err;
   }
-  console.log("---Server is connected to the MongoDB database", port);
+  console.log("---Server is connected to the MongoDB database");
   mongoDBDatabase = db;
  
   //start server
