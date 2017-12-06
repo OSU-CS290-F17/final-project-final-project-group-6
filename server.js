@@ -29,7 +29,6 @@ var mongoURL = 'mongodb://' + mongoUser + ':' + mongoPassword + '@' + mongoHost 
 var mongoConnection = null;
 
 
-
 //app.use(bodyParser.json());
 
 ///////////////////////////////////////////////////////////
@@ -160,11 +159,11 @@ app.get('/stash', function (req, res, next) {
 				results[i].linkURL = "/stash/" + results[i].topic;
 			}
 			res.status(200).render('stashPage', {stashes: results});
-		} 
+		}
 	});
 });
 
-/* 
+/*
 app.get('/people/:personId', function(req, res, next) {
   var peopleDataCollection = mongoConnection.collection('peopleData');
 
@@ -177,7 +176,7 @@ app.get('/people/:personId', function(req, res, next) {
       next();
     }
   });
-}); 
+});
 */
 
 app.get('/stash/:stashName', function (req, res, next) {
@@ -215,19 +214,16 @@ app.get('*', function (req, res, next) {
 */
 
 console.log("---MongoDB URL = ", mongoURL);
-MongoClient.connect(mongoURL, function (err, db) {
+MongoClient.connect(mongoURL, function (err, connection) {
   if (err) {
     throw err;
   }
   console.log("---Server is connected to the MongoDB database");
-  mongoConnection = db;
- 
+
+  mongoConnection = connection;
+
   //start server
   app.listen(port, function () {
     console.log("---Server is listening on port ", port);
   });
 });
-
-
-
-
