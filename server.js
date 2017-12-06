@@ -23,6 +23,7 @@ var mongoPort = process.env.MONGO_PORT || 27017;
 var mongoUser = process.env.MONGO_USER;
 var mongoPassword = process.env.MONGO_PASSWORD;
 var mongoDBName = process.env.MONGO_DB;
+var mongoDBDocumentName = process.env.MONGO_DOCUMENT || "stashes";
 
 var mongoURL = 'mongodb://' + mongoUser + ':' + mongoPassword + '@' + mongoHost + ':' + mongoPort + '/' + mongoDBName;
 var mongoDBDatabase;
@@ -150,9 +151,34 @@ app.get('/', function (req, res, next) {
 
 app.get('/stash', function (req, res, next) {
 	console.log('Server received "' + req.method + '" request on the URL "' + req.url + '" --page found');
-	//var content = {stashes: /*GET ALL STASHES FROM THE SERVERS AND PUT THEM HERE*/};
-	res.status(200).render('stashPage', content);
+	var stashCollection = mongoConnection.collection('peopleData');
+	stashCollection.find().toArray(function (err, results) {
+		if (err) {
+			res.status(500).send("Error fetching people from DB");
+		} else {
+			for(var i = 0; i < results.length; i++){
+				results[i].linkURL = "/stash/" + results[i].topic;
+			}
+			res.status(200).render('stashPage', results);
+		} 
+	});
 });
+
+/* 
+app.get('/people/:personId', function(req, res, next) {
+  var peopleDataCollection = mongoConnection.collection('peopleData');
+
+  peopleDataCollection.find({ personId: req.params.personId }).toArray(function (err, results) {
+    if (err) {
+      res.status(500).send("Error fetching people from DB");
+    } else if (results.length > 0) {
+      res.status(200).render('personPage', results[0]);
+    } else {
+      next();
+    }
+  });
+}); 
+*/
 
 app.get('/stash/:stashName', function (req, res, next) {
 	var stashName = req.params.stashName;
