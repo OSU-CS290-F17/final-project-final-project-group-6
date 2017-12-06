@@ -188,6 +188,7 @@ app.get('*', function (req, res, next) {
 *
 */
 
+console.log("---MongoDB URL = ", mongoURL);
 MongoClient.connect(mongoURL, function (err, db) {
   if (err) {
     throw err;
