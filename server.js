@@ -28,7 +28,7 @@ var mongoDBDocumentName = process.env.MONGO_DOCUMENT || "stashes";
 var mongoURL = 'mongodb://' + mongoUser + ':' + mongoPassword + '@' + mongoHost + ':' + mongoPort + '/' + mongoDBName;
 var mongoDBDatabase;
 
-
+var mongoConnection = null;
 
 app.use(bodyParser.json());
 
@@ -151,7 +151,7 @@ app.get('/', function (req, res, next) {
 
 app.get('/stash', function (req, res, next) {
 	console.log('Server received "' + req.method + '" request on the URL "' + req.url + '" --page found');
-	var stashCollection = mongoConnection.collection('peopleData');
+	var stashCollection = mongoConnection.collection('stashes');
 	stashCollection.find().toArray(function (err, results) {
 		if (err) {
 			res.status(500).send("Error fetching people from DB");
@@ -159,12 +159,12 @@ app.get('/stash', function (req, res, next) {
 			for(var i = 0; i < results.length; i++){
 				results[i].linkURL = "/stash/" + results[i].topic;
 			}
-			res.status(200).render('stashPage', results);
-		} 
+			res.status(200).render('stashPage', {stashes: results});
+		}
 	});
 });
 
-/* 
+/*
 app.get('/people/:personId', function(req, res, next) {
   var peopleDataCollection = mongoConnection.collection('peopleData');
 
@@ -177,7 +177,7 @@ app.get('/people/:personId', function(req, res, next) {
       next();
     }
   });
-}); 
+});
 */
 
 app.get('/stash/:stashName', function (req, res, next) {
@@ -215,19 +215,15 @@ app.get('*', function (req, res, next) {
 */
 
 console.log("---MongoDB URL = ", mongoURL);
-MongoClient.connect(mongoURL, function (err, db) {
+MongoClient.connect(mongoURL, function (err, connection) {
   if (err) {
     throw err;
   }
   console.log("---Server is connected to the MongoDB database");
-  mongoDBDatabase = db;
- 
+  mongoConnection = connection;
+
   //start server
   app.listen(port, function () {
     console.log("---Server is listening on port ", port);
   });
 });
-
-
-
-

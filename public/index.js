@@ -13,6 +13,18 @@ var stashDescriptionInput = document.getElementById('stash-description-input');
 
 //======================== SUBMIT POSTS ===================================//
 
+function getStashId() {
+  var currentURL = window.location.pathname;
+  var urlComponents = currentURL.split('/');
+  if(urlComponents[0] === "" && urlComponents[1] === "stash") {
+    console.log("==URL Component: ",urlComponents[2]);
+    return urlComponents[2];
+  } else {
+    return null
+  }
+}
+
+
 if(postSubmitButton)
 {
   // User clicks on the make post button.
