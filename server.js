@@ -26,16 +26,16 @@ var mongoDBName = process.env.MONGO_DB;
 var mongoDBDocumentName = process.env.MONGO_DOCUMENT || "stashes";
 
 var mongoURL = 'mongodb://' + mongoUser + ':' + mongoPassword + '@' + mongoHost + ':' + mongoPort + '/' + mongoDBName;
-var mongoDBDatabase;
+var mongoConnection = null;
 
 
 
-app.use(bodyParser.json());
+//app.use(bodyParser.json());
 
 ///////////////////////////////////////////////////////////
 //// DELETE THIS WHEN WE HAVE THE SERVER WORKING CORRECTLY.
 ///////////////////////////////////////////////////////////
-app.get('/', function(req, res) {
+/* app.get('/', function(req, res) {
 	res.status(200).render('stashPage', {stashes: stashData});
 });
 
@@ -93,7 +93,7 @@ app.post('/comments/addComment', function (req, res, next) {
 // We have gotten an unknown request to add something. Respond.
 app.post('*', function (req, res, next) {
 	res.status(404).send("\n\nServer got POST request:\nPOST to unknown path.\nResponding with status code 404.");
-});
+}); */
 
 //////////////////////////////////////////////////////////
 // /DELETE END.
@@ -151,7 +151,7 @@ app.get('/', function (req, res, next) {
 
 app.get('/stash', function (req, res, next) {
 	console.log('Server received "' + req.method + '" request on the URL "' + req.url + '" --page found');
-	var stashCollection = mongoConnection.collection('peopleData');
+	var stashCollection = mongoConnection.collection('stashes');
 	stashCollection.find().toArray(function (err, results) {
 		if (err) {
 			res.status(500).send("Error fetching people from DB");
@@ -159,7 +159,7 @@ app.get('/stash', function (req, res, next) {
 			for(var i = 0; i < results.length; i++){
 				results[i].linkURL = "/stash/" + results[i].topic;
 			}
-			res.status(200).render('stashPage', results);
+			res.status(200).render('stashPage', {stashes: results});
 		} 
 	});
 });
@@ -220,7 +220,7 @@ MongoClient.connect(mongoURL, function (err, db) {
     throw err;
   }
   console.log("---Server is connected to the MongoDB database");
-  mongoDBDatabase = db;
+  mongoConnection = db;
  
   //start server
   app.listen(port, function () {
