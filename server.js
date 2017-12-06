@@ -1,7 +1,6 @@
 console.log("Server JavaScript start.");
 var fs = require('fs');
 var path = require('path');
-//var http = require('http') //we may not need the HTTP module
 var MongoClient = require('mongodb').MongoClient;
 var handlebars = require('handlebars');
 var express = require('express');
@@ -16,6 +15,19 @@ var commentData = require('./commentData');
 
 app.engine('handlebars', exphbs({defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
+
+
+//environment variables for MongoDB
+var mongoHost = process.env.MONGO_HOST;
+var mongoPort = process.env.MONGO_PORT || 27017;
+var mongoUser = process.env.MONGO_USER;
+var mongoPassword = process.env.MONGO_PASSWORD;
+var mongoDBName = process.env.MONGO_DB;
+
+var mongoURL = 'mongodb://' + mongoUser + ':' + mongoPassword + '@' + mongoHost + ':' + mongoPort + '/' + mongoDBName;
+var mongoDBDatabase;
+
+
 
 app.use(bodyParser.json());
 
@@ -176,15 +188,19 @@ app.get('*', function (req, res, next) {
 *
 */
 
-
-
-
-
-//start server
-app.listen(port, function () {
-    /*
-	*insert callback code here
-	* ----note we may not need anything here-----
-	*/
-	console.log("---Server is listening on port ", port);
+MongoClient.connect(mongoURL, function (err, db) {
+  if (err) {
+    throw err;
+  }
+  console.log("---Server is connected to the MongoDB database", port);
+  mongoDBDatabase = db;
+ 
+  //start server
+  app.listen(port, function () {
+    console.log("---Server is listening on port ", port);
+  });
 });
+
+
+
+
