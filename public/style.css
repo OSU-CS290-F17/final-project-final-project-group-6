@@ -61,8 +61,15 @@ a {
   flex-direction: column;
 }
 
-/* A single stash/post/comment. */
-.post, .stash, .comment {
+/* A single stash. */
+.stash {
+  display: block;
+  width: 75%;
+  margin: 10px;
+}
+
+/* A single post/comment. */
+.post, .comment {
   display: block;
   width: 75%;
   margin: 10px;
@@ -82,6 +89,11 @@ a {
   border-radius: 3px;
 }
 
+/* Inner box for just stash. */
+.stash-box {
+  padding: 10px;
+}
+
 /* Image box for result. */
 .post-image-box {
   display: inline-block;
@@ -97,7 +109,8 @@ a {
   height: auto;
   margin-left: auto;
   margin-right: auto;
-  border: 2px solid #ececec;
+  border: 2px solid #AF670E;
+  border-radius: 3px;
 }
 
 /* Title component of a post. */
@@ -133,6 +146,7 @@ a {
   display: inline-flex;
   flex-direction: column;
   color: white;
+  background-color: #333333;
 }
 
 /* The stash the post comes from. */
@@ -142,13 +156,13 @@ a {
 
 /* The title of a stash. */
 .stash-title  {
-  color: #00D0D0;
+  color: #FB9414;
   font-size: 20px;
 }
 
 /* The user who made the post. */
 .post-user {
-  color: #00D0D0;
+  color: #FB9414;
 }
 
 /* Mouse over name of result. */
@@ -206,7 +220,7 @@ a {
   height: 30px;
   font-size: 18px;
   color: white;
-  background-color: #b0b0b0;
+  background-color: #808080;
   margin-top: 20px;
   margin-bottom: 20px;
 }
@@ -286,7 +300,7 @@ a {
   height: 30px;
   font-size: 18px;
   color: white;
-  background-color: #b0b0b0;
+  background-color: #808080;
   margin-top: 20px;
   margin-bottom: 20px;
 }
@@ -294,7 +308,7 @@ a {
 /* Mouse over close modal button. */
 .close-modal:hover {
   cursor: pointer;
-  background-color: #00D0D0;
+  background-color: #FB9414;
 }
 
 /* Modal body. */
@@ -345,7 +359,7 @@ a {
   height: 40px;
   font-size: 18px;
   color: white;
-  background-color: #b0b0b0;
+  background-color: #808080;
   margin-top: 20px;
   margin-bottom: 20px;
 }
@@ -353,7 +367,7 @@ a {
 /* Make action buttons / search button glow teal when hovered over. */
 .action-button:hover, .search-button:hover {
   cursor: pointer;
-  background-color: #00D0D0;
+  background-color: #FB9414;
 }
 
 /* The modal's cancel and accept buttons. */
