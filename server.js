@@ -1,7 +1,17 @@
 console.log("Server JavaScript start.");
 var fs = require('fs');
 var path = require('path');
-var MongoClient = require('mongodb').MongoClient;
+var Db = require('mongodb').Db,
+    MongoClient = require('mongodb').MongoClient,
+    Server = require('mongodb').Server,
+    ReplSetServers = require('mongodb').ReplSetServers,
+    ObjectID = require('mongodb').ObjectID,
+    Binary = require('mongodb').Binary,
+    GridStore = require('mongodb').GridStore,
+    Grid = require('mongodb').Grid,
+    Code = require('mongodb').Code,
+    //BSON = require('mongodb').pure().BSON, //this was requred in the docs for making objectID's with MongoDB, but it will not compile
+    assert = require('assert');
 var handlebars = require('handlebars');
 var express = require('express');
 var app = express();
@@ -99,49 +109,10 @@ app.post('*', function (req, res, next) {
 //////////////////////////////////////////////////////////
 
 
-///////////////////////////////////////////////
-////*Code Related to connecting to MongoDB*////
-///////////////////////////////////////////////
-//
-//
 
-
-//check if stash is in database
-function isStashNameInDatabase(stashName){
-	var stashCollection = mongoConnection.collection('stashes');
-	stashCollection.find({topic: stashName}).toArray(function (err, results) {
-		if (err) {
-			res.status(500).send("Error searching database.");
-		} else if (results.length > 0){
-			return true;
-		}
-		else{
-			return false;
-		}
-    });
-}
-
-
-//check if post is in database
-function isPostInDatabase(stashName, postId){
-	//RETURN A BOOLEAN TRUE POST IS IN STASH IN THE DATABASE
-}
-
-function addStashToDatabase(/*parameters*/){
-	//ADDS STASH TO DATABASE
-}
-
-function addPostToStashInDatabase(/*paramaeters*/){
-	//ADDS POST TO STASH IN DATABASE
-}
-
-function addCommentToPostInDatabase(/*paramaeters*/){
-	//ADDS COMMENT TO POST INSIDE CORRECT STASH IN DATABASE
-}
-
-// //////////////////////////////////////
-// ////*Express Middleware Functions*////
-// //////////////////////////////////////
+//////////////////////////////////////
+////*Express Middleware Functions*////
+//////////////////////////////////////
 
 app.use(bodyParser.json());
 
@@ -173,10 +144,15 @@ app.post("/stash/:stashId/:postId/addComment", function (req, res, next) {
 // We have gotten a request to add a post. Respond.
 app.post("/stash/:stashId/addPost", function (req, res, next) {
 
-  var stashCollection = mongoConnection.collection('stashes');
-
+	var stashCollection = mongoConnection.collection('stashes');
+	
+	// Create a new ObjectID
+	var objectId = new ObjectID();
+	// Verify that the hex string is 24 characters long
+	assert.equal(24, objectId.toHexString().length);
+	
 	var postObj = {
-		postId: req.body.postId,
+		postId: objectId,
 		topic: req.params.stashId,
 		user: req.body.user,
 		imageURL: req.body.imageURL,
@@ -243,25 +219,6 @@ app.get('/stash', function (req, res, next) {
 	});
 });
 
-/*
-app.get('/people/:personId', function(req, res, next) {
-  var peopleDataCollection = mongoConnection.collection('peopleData');
-
-  peopleDataCollection.find({ personId: req.params.personId }).toArray(function (err, results) {
-    if (err) {
-      res.status(500).send("Error fetching people from DB");
-    } else if (results.length > 0) {
-      res.status(200).render('personPage', results[0]);
-    } else {
-      next();
-    }
-  });
-});
-*/
-//var thename = "Andrew";
-//db.collection.find( { "name" : { $regex : new RegExp(stashName, "i") } } );
-
-
 app.get('/stash/:stashName', function (req, res, next) {
 	var stashName = req.params.stashName;
 	var stashCollection = mongoConnection.collection('stashes');
@@ -280,7 +237,6 @@ app.get('/stash/:stashName', function (req, res, next) {
 	});
 });
 
-
 app.get('/stash/:stashName/:postId', function (req, res, next) {
  	var stashName = req.params.stashName;
  	var postId = req.params.postId;
@@ -294,7 +250,7 @@ app.get('/stash/:stashName/:postId', function (req, res, next) {
 		else{
 			var postFound = false;
 			for(var i = 0; i < results[0].posts.length; i++){
-				if(results[0].posts[i].postId === postId){
+				if(results[0].posts[i].postId == postId ){//must be double equals, not tripple equals
 					postFound = true;
 					results[0].posts[i].linkURL = "/stash/" + stashName + "/" + results[0].posts[i].postId;
 					res.status(200).render('commentPage', {posts: [results[0].posts[i]], comments: results[0].posts[i].comments});
@@ -307,18 +263,13 @@ app.get('/stash/:stashName/:postId', function (req, res, next) {
 	});
 });
 
-
-
 //catch any http get method with a path that can not be resolved above
 app.get('*', function (req, res, next) {
 	//console.log('Server received "' + req.method + '" request on the URL "' + req.url + '" --PAGE NOT FOUND -- sent contents of 404.html');
 	res.status(404).render('404Page');
 });
-/*
-*
-*add catch alls for other HTTP request methods if needeed
-*
-*/
+
+
 
 console.log("---MongoDB URL = ", mongoURL);
 MongoClient.connect(mongoURL, function (err, connection) {
