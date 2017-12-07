@@ -113,8 +113,7 @@ function isStashNameInDatabase(stashName){
 		if (err) {
 			res.status(500).send("Error searching database.");
 		} else if (results.length > 0){
-			console.log(results);
-			return 1;
+			return true;
 		}
 		else{
 			return false;
@@ -196,7 +195,6 @@ app.get('/people/:personId', function(req, res, next) {
 
 app.get('/stash/:stashName', function (req, res, next) {
 	var stashName = req.params.stashName;
-	console.log(stashName);
 	var stashCollection = mongoConnection.collection('stashes');
 	stashCollection.find({topic: stashName}).toArray(function (err, results) {
 		if (err) {
@@ -208,22 +206,37 @@ app.get('/stash/:stashName', function (req, res, next) {
 			for(var i = 0; i < results[0].posts.length; i++){
 				results[0].posts[i].linkURL = "/stash/" + stashName + "/" + results[0].posts[i].postID;
 			}
-			res.status(200).render('postPage', {posts: results[0].posts});	
+			res.status(200).render('postPage', results[0]);	
 		}
 	});
 });
 
-// app.get('/stash/:stashName/:postId', function (req, res, next) {
-// 	var stashName = req.params.stashName;
-// 	var postId = req.params.postId;
-// 	if(isStashNameInDatabase(stashName)){
-// 		if(isPostInDatabase(stashName, postId){
-// 			console.log('Server received "' + req.method + '" request on the URL "' + req.url + '" --page found');
-// 			var content = /*JSON FORM OF CORRECT DYNAMIC CONTENT FOR COMMENT PAGE*/;
-// 			res.status(200).render('commentPage', content);
-// 		}
-// 	}
-// });
+
+app.get('/stash/:stashName/:postId', function (req, res, next) {
+ 	var stashName = req.params.stashName;
+ 	var postId = req.params.postId;
+ 	var stashCollection = mongoConnection.collection('stashes');
+	stashCollection.find({topic: stashName}).toArray(function (err, results) {
+		if (err) {
+			res.status(500).send("Error fetching stash from DB");
+		} else if (results.length === 0){
+			next();//the stash is not in the DB
+		}
+		else{
+			var postFound = false;
+			for(var i = 0; i < results[0].posts.length; i++){
+				if(results[0].posts[i].postID === postId){
+					postFound = true;
+					results[0].posts[i].linkURL = "/stash/" + stashName + "/" + results[0].posts[i].postID;
+					res.status(200).render('commentPage', {posts: [results[0].posts[i]], results[0].posts[i]});	
+				}
+			}
+			if(!postFound){
+				next();
+			}
+		}
+	});
+});
 
 
 
@@ -244,9 +257,8 @@ MongoClient.connect(mongoURL, function (err, connection) {
     throw err;
   }
   console.log("---Server is connected to the MongoDB database");
-
   mongoConnection = connection;
-
+  
   //start server
   app.listen(port, function () {
     console.log("---Server is listening on port ", port);
