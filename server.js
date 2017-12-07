@@ -120,7 +120,7 @@ function isStashNameInDatabase(stashName){
 		}
     });
 }
-	
+
 
 //check if post is in database
 function isPostInDatabase(stashName, postID){
@@ -144,6 +144,24 @@ function addCommentToPostInDatabase(/*paramaeters*/){
 // //////////////////////////////////////
 
 app.use(bodyParser.json());
+
+// We have gotten a request to add a stash. Respond.
+app.post('/addStash', function (req, res, next) {
+
+	var stashCollection = mongoConnection.collection('stashes');
+		console.log("\n\nBODY: ", req.body);
+		console.log(req.body.stashId);
+
+	stashCollection.insert({
+		 topic: req.body.topic,
+		 text: req.body.text,
+		 posts: [ ]
+	});
+
+	console.log("\nServer got POST request.\nResponding with status code 200.\n");
+	res.status(200).send("Success");
+
+});
 
 //a catch all for any http DELETE requests.  WE DO NOT ALLOW ANY DELETE REQUEST
 app.delete('*', function (req, res, next) {
@@ -206,7 +224,7 @@ app.get('/stash/:stashName', function (req, res, next) {
 			for(var i = 0; i < results[0].posts.length; i++){
 				results[0].posts[i].linkURL = "/stash/" + stashName + "/" + results[0].posts[i].postID;
 			}
-			res.status(200).render('postPage', results[0]);	
+			res.status(200).render('postPage', results[0]);
 		}
 	});
 });
@@ -228,7 +246,7 @@ app.get('/stash/:stashName/:postId', function (req, res, next) {
 				if(results[0].posts[i].postID === postId){
 					postFound = true;
 					results[0].posts[i].linkURL = "/stash/" + stashName + "/" + results[0].posts[i].postID;
-					res.status(200).render('commentPage', {posts: [results[0].posts[i]], results[0].posts[i]});	
+					res.status(200).render('commentPage', {posts: [results[0].posts[i]], results[0].posts[i]});
 				}
 			}
 			if(!postFound){
@@ -258,7 +276,7 @@ MongoClient.connect(mongoURL, function (err, connection) {
   }
   console.log("---Server is connected to the MongoDB database");
   mongoConnection = connection;
-  
+
   //start server
   app.listen(port, function () {
     console.log("---Server is listening on port ", port);
