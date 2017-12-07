@@ -88,7 +88,8 @@ if(postSubmitButton)
         alert("Error storing post in database:\n\n\n" + event.target.response);
       } else {
         var newLinkUrl = "/stash/"+getStashId()+"/"+event.target.responseText;
-        buildPost(postId, getStashId(), user, imageURL, newLinkUrl, title);
+        var newStashId = getStashId().replace("%20", " ");
+        buildPost(postId, newStashId, user, imageURL, newLinkUrl, title);
       }
     });
 
