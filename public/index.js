@@ -11,8 +11,7 @@ var postPhotoInput = document.getElementById('post-photo-input');
 var stashNameInput = document.getElementById('stash-name-input');
 var stashDescriptionInput = document.getElementById('stash-description-input');
 
-//======================== SUBMIT POSTS ===================================//
-
+// This function uses the URL to get the stashId.
 function getStashId() {
   var currentURL = window.location.pathname;
   var urlComponents = currentURL.split('/');
@@ -24,6 +23,7 @@ function getStashId() {
   }
 }
 
+//======================== SUBMIT POSTS ===================================//
 
 if(postSubmitButton)
 {
@@ -316,14 +316,58 @@ var searchPost = document.getElementById("search-post");
 
 // This function sends a request to the server to find a stash that contains
 // the given text.
-function requestSearchStash() {
+function requestSearchStash(searchText) {
   console.log("We are searching for a stash.");
+  var getRequest = new XMLHttpRequest();
+  var getURL = "/Stash/getStash";
+  getRequest.open('GET', getURL);
+
+  var getObj = {
+    type: "stash",
+    searchText: searchText
+  };
+
+  var requestBody = JSON.stringify(getObj);
+  getRequest.setRequestHeader('Content-Type', 'application/json');
+
+  getRequest.addEventListener('load', function (event) {
+    if (event.target.status !== 200) {
+      alert("Error finding stash(es) in database:\n\n\n" + event.target.response);
+    } else {
+      console.log('Search 200')
+    }
+  });
+
+  console.log("getRequest:", requestBody);
+  getRequest.send(requestBody);
 }
 
 // This function sends a request to the server to find a post that contains
 // the given text.
-function requestSearchPost() {
+function requestSearchPost(searchText) {
   console.log("We are searching for a post.");
+  var getRequest = new XMLHttpRequest();
+  var getURL = "/posts/getPost";
+  getRequest.open('GET', getURL);
+
+  var getObj = {
+    type: "post",
+    searchText: searchText
+  };
+
+  var requestBody = JSON.stringify(getObj);
+  getRequest.setRequestHeader('Content-Type', 'application/json');
+
+  getRequest.addEventListener('load', function (event) {
+    if (event.target.status !== 200) {
+      alert("Error finding post(s) in database:\n\n\n" + event.target.response);
+    } else {
+      console.log('Search 200')
+    }
+  });
+
+  console.log("getRequest:", requestBody);
+  getRequest.send(requestBody);
 }
 
 // User clicks on search button.
@@ -332,13 +376,13 @@ if(searchButton) {
     if(searchPost) {
       // Don't search if the text field is empty.s
       if(searchPost.value !== "") {
-        requestSearchPost();
+        requestSearchPost(searchPost.value);
       }
     }
     if(searchStash) {
       // Don't search if the text field is empty.s
       if(searchStash.value !== "") {
-        requestSearchStash();
+        requestSearchStash(searchStash.value);
       }
     }
   });
