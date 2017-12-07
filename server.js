@@ -152,7 +152,7 @@ app.post("/stash/:stashId/addPost", function (req, res, next) {
 	assert.equal(24, objectId.toHexString().length);
 
 	var postObj = {
-		postId: string(objectId),
+		postId: String(objectId),
 		topic: req.params.stashId,
 		user: req.body.user,
 		imageURL: req.body.imageURL,
