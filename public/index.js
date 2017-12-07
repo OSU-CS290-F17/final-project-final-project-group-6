@@ -23,6 +23,17 @@ function getStashId() {
   }
 }
 
+// This function uses the URL to get the postId.
+function getPostId() {
+  var currentURL = window.location.pathname;
+  var urlComponents = currentURL.split('/');
+  if (urlComponents[0] === "" && urlComponents[1] === "stash") {
+    return urlComponents[3];
+  } else {
+    return null;
+  }
+}
+
 //======================== SUBMIT POSTS ===================================//
 
 if(postSubmitButton)
@@ -103,15 +114,6 @@ if(postSubmitButton)
     var postsContainer = document.querySelector('#id-posts');
     postsContainer.insertAdjacentHTML('beforeend', postHTML);
 
-    // If the post has no image remove the image box.
-    var brandNewPost = document.getElementById('id-posts').lastChild.previousSibling;
-    var newImageBox = brandNewPost.getElementsByTagName('div');
-    var newImage = brandNewPost.getElementsByTagName('img');
-    newImage[0].onerror = function() {
-      // image not found. Remove the image box.
-      newImageBox[1].remove();
-    };
-
     return postHTML;
   }
 
@@ -119,9 +121,9 @@ if(postSubmitButton)
   // Otherwise gives user an error message.
   function respondToAddClick() {
     // Check to make sure all fields are set.
-    if(!postTextInput.value) {
+    if(!postTextInput.value || !postPhotoInput.value) {
       console.log("Post failed to create.");
-      alert("Set the title before attempting to create a post.");
+      alert("Fill all fields before attempting to create a post.");
     }
     else {
       // We create the post and fill it with relavent data.
@@ -147,7 +149,6 @@ if(postSubmitButton)
       respondToAddClick();
     }
   });
-
 }
 
 //======================== SUBMIT STASHES ===================================//
@@ -255,17 +256,6 @@ if(stashSubmitButton)
 
 var commentButton = document.getElementById("comment-button");
 var newCommentBox = document.getElementById("comment-body-input");
-
-// Get the id of the post we are currently in.
-function getPostId() {
-  var currentURL = window.location.pathname;
-  var urlComponents = currentURL.split('/');
-  if (urlComponents[0] === "" && urlComponents[1] === "stash") {
-    return urlComponents[3];
-  } else {
-    return null;
-  }
-}
 
 // This function sends a requests to the server to build a comment.
 function requestComment(commentId, user, text) {
