@@ -77,7 +77,7 @@ if(postSubmitButton)
       if (event.target.status !== 200) {
         alert("Error storing post in database:\n\n\n" + event.target.response);
       } else {
-        buildPost(postId, topic, user, imageURL, linkURL, title);
+        buildPost(postId, getStashId(), user, imageURL, linkURL, title);
       }
     });
 
@@ -191,7 +191,7 @@ if(stashSubmitButton)
       if (event.target.status !== 200) {
         alert("Error storing stash in database:\n\n\n" + event.target.response);
       } else {
-        buildStash(stashId, topic, linkURL, text);
+        buildStash(stashId, topic, "/stash/" + topic , text);
       }
     });
 
@@ -256,10 +256,21 @@ if(stashSubmitButton)
 var commentButton = document.getElementById("comment-button");
 var newCommentBox = document.getElementById("comment-body-input");
 
+// Get the id of the post we are currently in.
+function getPostId() {
+  var currentURL = window.location.pathname;
+  var urlComponents = currentURL.split('/');
+  if (urlComponents[0] === "" && urlComponents[1] === "stash") {
+    return urlComponents[3];
+  } else {
+    return null;
+  }
+}
+
 // This function sends a requests to the server to build a comment.
 function requestComment(commentId, user, text) {
   var postRequest = new XMLHttpRequest();
-  var postURL = "/comments/addComment";
+  var postURL = "/stash/" + getStashId() + "/" + getPostId() + "/addComment";
   postRequest.open('POST', postURL);
 
   var postObj = {
@@ -288,7 +299,6 @@ function buildComment(commentId, user, text) {
   console.log("New comment created.");
 
   var context = {
-    commentId: commentId,
     user: user,
     text: text
   };

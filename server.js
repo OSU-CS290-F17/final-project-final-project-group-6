@@ -145,6 +145,29 @@ function addCommentToPostInDatabase(/*paramaeters*/){
 
 app.use(bodyParser.json());
 
+// We have gotten a request to add a comment. Respond.
+app.post("/stash/:stashId/:postId/addComment", function (req, res, next) {
+
+  var stashCollection = mongoConnection.collection('stashes');
+
+	var postObj = {
+		user: req.body.user,
+		text: req.body.text,
+		commentId: 0
+	};
+
+  stashCollection.updateOne(
+  	{ topic: req.params.stashId },
+    { $push: { posts: postObj } },
+    function (err, result) {
+      if (err) {
+        res.status(500).send("Error fetching stashes from DB");
+      } else {
+        res.status(200).send("Success");
+      }
+    });
+});
+
 // We have gotten a request to add a post. Respond.
 app.post("/stash/:stashId/addPost", function (req, res, next) {
 
