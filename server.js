@@ -123,7 +123,7 @@ function isStashNameInDatabase(stashName){
 
 
 //check if post is in database
-function isPostInDatabase(stashName, postID){
+function isPostInDatabase(stashName, postId){
 	//RETURN A BOOLEAN TRUE POST IS IN STASH IN THE DATABASE
 }
 
@@ -222,7 +222,7 @@ app.get('/stash/:stashName', function (req, res, next) {
 		}
 		else{
 			for(var i = 0; i < results[0].posts.length; i++){
-				results[0].posts[i].linkURL = "/stash/" + stashName + "/" + results[0].posts[i].postID;
+				results[0].posts[i].linkURL = "/stash/" + stashName + "/" + results[0].posts[i].postId;
 			}
 			res.status(200).render('postPage', results[0]);
 		}
@@ -243,10 +243,10 @@ app.get('/stash/:stashName/:postId', function (req, res, next) {
 		else{
 			var postFound = false;
 			for(var i = 0; i < results[0].posts.length; i++){
-				if(results[0].posts[i].postID === postId){
+				if(results[0].posts[i].postId === postId){
 					postFound = true;
-					results[0].posts[i].linkURL = "/stash/" + stashName + "/" + results[0].posts[i].postID;
-					res.status(200).render('commentPage', {posts: [results[0].posts[i]], results[0].posts[i]});
+					results[0].posts[i].linkURL = "/stash/" + stashName + "/" + results[0].posts[i].postId;
+					res.status(200).render('commentPage', {posts: [results[0].posts[i]], comments: results[0].posts[i].comments});
 				}
 			}
 			if(!postFound){
