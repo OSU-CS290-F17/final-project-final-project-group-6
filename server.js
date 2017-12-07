@@ -145,14 +145,14 @@ app.post("/stash/:stashId/:postId/addComment", function (req, res, next) {
 app.post("/stash/:stashId/addPost", function (req, res, next) {
 
 	var stashCollection = mongoConnection.collection('stashes');
-	
+
 	// Create a new ObjectID
 	var objectId = new ObjectID();
 	// Verify that the hex string is 24 characters long
 	assert.equal(24, objectId.toHexString().length);
-	
+
 	var postObj = {
-		postId: objectId,
+		postId: String(objectId),
 		topic: req.params.stashId,
 		user: req.body.user,
 		imageURL: req.body.imageURL,
@@ -167,7 +167,8 @@ app.post("/stash/:stashId/addPost", function (req, res, next) {
       if (err) {
         res.status(500).send("Error fetching stashes from DB");
       } else {
-        res.status(200).send("Success");
+				var newSendString = String(objectId);
+        res.status(200).send(newSendString);
       }
     });
 });

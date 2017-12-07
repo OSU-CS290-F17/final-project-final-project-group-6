@@ -73,7 +73,6 @@ if(postSubmitButton)
     postRequest.open('POST', postURL);
 
     var postObj = {
-      postId: postId,
       topic: topic,
       user: user,
       imageURL: imageURL,
@@ -88,7 +87,8 @@ if(postSubmitButton)
       if (event.target.status !== 200) {
         alert("Error storing post in database:\n\n\n" + event.target.response);
       } else {
-        buildPost(postId, getStashId(), user, imageURL, linkURL, title);
+        var newLinkUrl = "/stash/"+getStashId()+"/"+event.target.responseText;
+        buildPost(postId, getStashId(), user, imageURL, newLinkUrl, title);
       }
     });
 
