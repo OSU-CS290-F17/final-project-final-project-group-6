@@ -323,7 +323,6 @@ function requestSearchStash(searchText) {
   getRequest.open('GET', getURL);
 
   var getObj = {
-    type: "stash",
     searchText: searchText
   };
 
@@ -362,7 +361,7 @@ function requestSearchPost(searchText) {
     if (event.target.status !== 200) {
       alert("Error finding post(s) in database:\n\n\n" + event.target.response);
     } else {
-      console.log('Search 200')
+      console.log('Search Successful.');
     }
   });
 
