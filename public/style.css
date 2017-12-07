@@ -357,7 +357,7 @@ a {
 /* 404 page's content. */
 .content-box-404 {
   text-align: center;
-  color: white;
+  color: black;
   margin-top: 100px;
   margin-bottom: 100px;
 }
