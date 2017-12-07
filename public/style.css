@@ -171,6 +171,9 @@ a {
   color: #FB9414;
 }
 
+.commenter-name {
+  color: #FB9414;
+}
 /* Mouse over name of result. */
 .post-title:hover {
   text-decoration: underline;
