@@ -137,6 +137,7 @@ a {
 
 /* Standard text of stash/post/comment. */
 .post-title, .stash-desc, .comment {
+  text-overflow: ellipsis;
   color: white;
 }
 
