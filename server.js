@@ -108,7 +108,17 @@ app.post('*', function (req, res, next) {
 
 //check if stash is in database
 function isStashNameInDatabase(stashName){
-	//RETURN A BOOLEAN TRUE STASH IS IN DATABASE
+	var stashCollection = mongoConnection.collection('stashes');
+	stashCollection.find( { topic : { $regex : new RegExp(stashName, "i") }}).toArray(function (err, results) {
+		if (err) {
+			res.status(500).send("Error fetching people from DB");
+		} else if (results.length > 0){
+			return true;
+		}
+		else{
+			return false;
+		}
+	});
 }
 
 //check if post is in database
@@ -178,13 +188,28 @@ app.get('/people/:personId', function(req, res, next) {
   });
 });
 */
+//var thename = "Andrew";
+//db.collection.find( { "name" : { $regex : new RegExp(stashName, "i") } } );
+
 
 app.get('/stash/:stashName', function (req, res, next) {
 	var stashName = req.params.stashName;
-	if(isStashNameInDatabase(stashName)){
-		console.log('Server received "' + req.method + '" request on the URL "' + req.url + '" --page found');
-		//var content = {posts: /*GET THIS STASH's POSTS FROM THE DATABASE AND PUT THEM HERE*/};
-		res.status(200).render('postPage', content);
+	var stashCollection = mongoConnection.collection('stashes');
+	//check if stash is in database
+	if(isStashNameInDatabase(stashName) === true){
+		stashCollection.find( { topic : { $regex : new RegExp(stashName, "i") }}).posts.toArray(function (err, results) {
+			if (err) {
+				res.status(500).send("Error fetching people from DB");
+			} else {
+				for(var i = 0; i < results.length; i++){
+					results[i].linkURL = "/stash/" + stashName + "/" + results[i].postID;
+				}
+				res.status(200).render('postPage', {posts: results});	
+			}
+		});
+	}
+	else {//else the stash does not exhist
+		next();
 	}
 });
 
