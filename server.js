@@ -156,10 +156,12 @@ app.post("/stash/:stashId/:postId/addComment", function (req, res, next) {
 		commentId: 0
 	};
 
+	var postId = req.params.postId;
+
   stashCollection.updateOne(
-  	{ topic: req.params.stashId },
-    { $push: { posts: postObj } },
-    function (err, result) {
+		{ topic: req.params.stashId, "posts.postId": postId },
+		{ $push: { "posts.$.comments": postObj } },
+		function (err, result) {
       if (err) {
         res.status(500).send("Error fetching stashes from DB");
       } else {
