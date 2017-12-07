@@ -109,17 +109,19 @@ app.post('*', function (req, res, next) {
 //check if stash is in database
 function isStashNameInDatabase(stashName){
 	var stashCollection = mongoConnection.collection('stashes');
-	stashCollection.find( { topic : { $regex : new RegExp(stashName, "i") }}).toArray(function (err, results) {
+	stashCollection.find({topic: stashName}).toArray(function (err, results) {
 		if (err) {
-			res.status(500).send("Error fetching people from DB");
+			res.status(500).send("Error searching database.");
 		} else if (results.length > 0){
-			return true;
+			console.log(results);
+			return 1;
 		}
 		else{
 			return false;
 		}
-	});
+    });
 }
+	
 
 //check if post is in database
 function isPostInDatabase(stashName, postID){
@@ -163,7 +165,7 @@ app.get('/stash', function (req, res, next) {
 	var stashCollection = mongoConnection.collection('stashes');
 	stashCollection.find().toArray(function (err, results) {
 		if (err) {
-			res.status(500).send("Error fetching people from DB");
+			res.status(500).send("Error fetching stash from DB");
 		} else {
 			for(var i = 0; i < results.length; i++){
 				results[i].linkURL = "/stash/" + results[i].topic;
@@ -194,23 +196,21 @@ app.get('/people/:personId', function(req, res, next) {
 
 app.get('/stash/:stashName', function (req, res, next) {
 	var stashName = req.params.stashName;
+	console.log(stashName);
 	var stashCollection = mongoConnection.collection('stashes');
-	//check if stash is in database
-	if(isStashNameInDatabase(stashName) === true){
-		stashCollection.find( { topic : { $regex : new RegExp(stashName, "i") }}).posts.toArray(function (err, results) {
-			if (err) {
-				res.status(500).send("Error fetching people from DB");
-			} else {
-				for(var i = 0; i < results.length; i++){
-					results[i].linkURL = "/stash/" + stashName + "/" + results[i].postID;
-				}
-				res.status(200).render('postPage', {posts: results});	
+	stashCollection.find({topic: stashName}).toArray(function (err, results) {
+		if (err) {
+			res.status(500).send("Error fetching stash from DB");
+		} else if (results.length === 0){
+			next();//the stash is not in the DB
+		}
+		else{
+			for(var i = 0; i < results[0].posts.length; i++){
+				results[0].posts[i].linkURL = "/stash/" + stashName + "/" + results[0].posts[i].postID;
 			}
-		});
-	}
-	else {//else the stash does not exhist
-		next();
-	}
+			res.status(200).render('postPage', {posts: results[0].posts});	
+		}
+	});
 });
 
 // app.get('/stash/:stashName/:postId', function (req, res, next) {
@@ -229,7 +229,7 @@ app.get('/stash/:stashName', function (req, res, next) {
 
 //catch any http get method with a path that can not be resolved above
 app.get('*', function (req, res, next) {
-	console.log('Server received "' + req.method + '" request on the URL "' + req.url + '" --PAGE NOT FOUND -- sent contents of 404.html');
+	//console.log('Server received "' + req.method + '" request on the URL "' + req.url + '" --PAGE NOT FOUND -- sent contents of 404.html');
 	res.status(404).render('404Page');
 });
 /*
