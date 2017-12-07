@@ -205,7 +205,7 @@ app.get('/', function (req, res, next) {
 });
 
 app.get('/stash', function (req, res, next) {
-	console.log('Server received "' + req.method + '" request on the URL "' + req.url + '" --page found');
+//	console.log('Server received "' + req.method + '" request on the URL "' + req.url + '" --page found');
 	var stashCollection = mongoConnection.collection('stashes');
 	stashCollection.find().toArray(function (err, results) {
 		if (err) {
