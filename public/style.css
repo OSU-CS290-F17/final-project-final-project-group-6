@@ -9,9 +9,17 @@ html *
   font-family: Arial;
 }
 
-/* Change the color of the body */
+/* Change the background of the body */
 body {
-  background-color: #FFFFFF;
+  background:
+  linear-gradient(27deg, #151515 5px, transparent 5px) 0 5px,
+  linear-gradient(207deg, #151515 5px, transparent 5px) 10px 0px,
+  linear-gradient(27deg, #222 5px, transparent 5px) 0px 10px,
+  linear-gradient(207deg, #222 5px, transparent 5px) 10px 5px,
+  linear-gradient(90deg, #1b1b1b 10px, transparent 10px),
+  linear-gradient(#1d1d1d 25%, #1a1a1a 25%, #1a1a1a 50%, transparent 50%, transparent 75%, #242424 75%, #242424);
+  background-color: #131313;
+  background-size: 20px 20px;
 }
 
 /* Stop links from being underlined by default. */
@@ -356,10 +364,16 @@ a {
 
 /* 404 page's content. */
 .content-box-404 {
+  max-width: 300px;
   text-align: center;
-  color: black;
+  color: white;
+  margin: auto;
   margin-top: 100px;
   margin-bottom: 100px;
+  padding: 5px;
+  background-color: #333333;
+  border: 2px solid #333333;
+  border-radius: 3px;
 }
 
 /* 404 page's image. */
