@@ -44,10 +44,21 @@ if(postSubmitButton)
     postPhotoInput.value = null;
   }
 
+  // Get the id of the stash we are currently in.
+  function getStashId() {
+    var currentURL = window.location.pathname;
+    var urlComponents = currentURL.split('/');
+    if (urlComponents[0] === "" && urlComponents[1] === "stash") {
+      return urlComponents[2];
+    } else {
+      return null;
+    }
+  }
+
   // This function sends a requests to the server to build a post.
   function requestPost(postId, topic, user, imageURL, linkURL, title) {
     var postRequest = new XMLHttpRequest();
-    var postURL = "/posts/addPost";
+    var postURL = "/stash/" + getStashId() + "/addPost";
     postRequest.open('POST', postURL);
 
     var postObj = {
