@@ -127,10 +127,10 @@ app.post("/stash/:stashId/:postId/addComment", function (req, res, next) {
 		commentId: 0
 	};
 
-	var postId = req.params.postId;
-
+	var objectId = new ObjectID(req.params.postId);
+	
   stashCollection.updateOne(
-		{ topic: req.params.stashId, "posts.postId": postId },
+		{ topic: req.params.stashId, "posts.postId": objectId },
 		{ $push: { "posts.$.comments": postObj } },
 		function (err, result) {
       if (err) {
@@ -250,7 +250,7 @@ app.get('/stash/:stashName/:postId', function (req, res, next) {
 		else{
 			var postFound = false;
 			for(var i = 0; i < results[0].posts.length; i++){
-				if(results[0].posts[i].postId == postId ){//must be double equals, not tripple equals
+				if(results[0].posts[i].postId.toString() === postId ){
 					postFound = true;
 					results[0].posts[i].linkURL = "/stash/" + stashName + "/" + results[0].posts[i].postId;
 					res.status(200).render('commentPage', {posts: [results[0].posts[i]], comments: results[0].posts[i].comments});
