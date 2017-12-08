@@ -54,9 +54,17 @@ a {
 	margin: 10px;
 }
 
+main{
+	display: flex;
+	flex-wrap: nowrap;
+	flex-direction: row;
+}
+
 /* The section where all of our content is held. */
 .content-container {
+  max-width: 75%;
   width: 75%;
+  min-width: 850px;
   display: inline-flex;
   flex-direction: column;
 }
@@ -71,19 +79,15 @@ a {
 /* A single post/comment. */
 .post, .comment {
   display: block;
-  width: 75%;
   margin: 10px;
 }
 
-/* Inner box for post. */
-.post-box {
-  max-height: 300px;
-}
-
 /* Inner box for stash/post/comment */
-.stash-box, .post-box, .comment {
+.stash-box, .post, .comment {
   max-height: 300px;
   padding: 5px;
+  width: 75%;
+  min-width: 850px;
   background-color: #333333;
   border: 2px solid #333333;
   border-radius: 3px;
@@ -148,6 +152,7 @@ a {
   border: 2px solid #333333;
   border-radius: 3px;
   width: 75%;
+  min-width: 850px;
   display: inline-flex;
   flex-direction: column;
   color: white;
@@ -182,7 +187,6 @@ a {
 /* The side panel. */
 .side-bar {
   display: inline-block;
-  float: right;
   width: 250px;
   vertical-align: top;
   margin: 10px;
@@ -380,8 +384,7 @@ a {
 }
 
 /* The modal's cancel and accept buttons. */
-#modal-cancel,
-#modal-accept {
+#modal-cancel, #modal-accept {
   margin-right: 20px;
 }
 
