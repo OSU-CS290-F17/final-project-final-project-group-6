@@ -12,13 +12,13 @@ html *
 /* Change the background of the body */
 body {
   background:
-  linear-gradient(27deg, #151515 5px, transparent 5px) 0 5px,
-  linear-gradient(207deg, #151515 5px, transparent 5px) 10px 0px,
+  linear-gradient(27deg, #251515 5px, transparent 5px) 0 5px,
+  linear-gradient(207deg, #251515 5px, transparent 5px) 10px 0px,
   linear-gradient(27deg, #222 5px, transparent 5px) 0px 10px,
   linear-gradient(207deg, #222 5px, transparent 5px) 10px 5px,
-  linear-gradient(90deg, #1b1b1b 10px, transparent 10px),
-  linear-gradient(#1d1d1d 25%, #1a1a1a 25%, #1a1a1a 50%, transparent 50%, transparent 75%, #242424 75%, #242424);
-  background-color: #131313;
+  linear-gradient(90deg, #2b1b1b 10px, transparent 10px),
+  linear-gradient(#2c1c1c 25%, #2a1a1a 25%, #2a1a1a 50%, transparent 50%, transparent 75%, #242424 75%, #242424);
+  background-color: #211111;
   background-size: 20px 20px;
 }
 
@@ -33,7 +33,7 @@ a {
   flex-direction: row;
 
   height: 200px;
-  background-color: #333333;
+  background-color: black;
 }
 
 /* Components of the title in the header. */
@@ -58,13 +58,14 @@ main{
 	display: flex;
 	flex-wrap: nowrap;
 	flex-direction: row;
+	justify-content: space-between;
 }
 
 /* The section where all of our content is held. */
 .content-container {
   max-width: 75%;
   width: 75%;
-  min-width: 850px;
+  min-width: 900px;
   display: inline-flex;
   flex-direction: column;
 }
@@ -82,11 +83,12 @@ main{
   margin: 10px;
 }
 
+
 /* Inner box for stash/post/comment */
 .stash-box, .post, .comment {
   max-height: 300px;
   padding: 5px;
-  width: 75%;
+  max-width:850px;
   min-width: 850px;
   background-color: #333333;
   border: 2px solid #333333;
@@ -151,7 +153,7 @@ main{
   padding: 5px;
   border: 2px solid #333333;
   border-radius: 3px;
-  width: 75%;
+  max-width:850px;
   min-width: 850px;
   display: inline-flex;
   flex-direction: column;
@@ -188,6 +190,7 @@ main{
 .side-bar {
   display: inline-block;
   width: 250px;
+  min-width: 250px;
   vertical-align: top;
   margin: 10px;
   border: 2px solid #333333;
