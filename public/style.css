@@ -120,6 +120,7 @@ main{
   display: inline;
   max-width: 100%;
   min-width: 200px;
+  max-height: 275px;
   min-height: 150px;
   height: auto;
   margin-left: auto;
