@@ -49,6 +49,11 @@ a {
   white-space: nowrap;
 }
 
+/* Title in header. */
+.site-title {
+  height: 100px;
+}
+
 /* set header image max height */
 .header-box img {
 	max-height: 190px;
@@ -405,9 +410,16 @@ main{
   margin-top: 100px;
   margin-bottom: 100px;
   padding: 5px;
+  padding-left: 100px;
+  padding-right: 100px;
   background-color: #333333;
   border: 2px solid #333333;
   border-radius: 3px;
+}
+
+/* 404 page's content header. */
+.content-box-404 h1 {
+  color: #f2b926;
 }
 
 /* 404 page's image. */
