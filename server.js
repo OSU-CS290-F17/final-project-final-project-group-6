@@ -107,8 +107,6 @@ app.post("/stash/:stashId/addPost", function (req, res, next) {
 app.post('/addStash', function (req, res, next) {
 
 	var stashCollection = mongoConnection.collection('stashes');
-		console.log("\n\nBODY: ", req.body);
-		console.log(req.body.stashId);
 
 	stashCollection.insert({
 		 topic: req.body.topic,
@@ -116,14 +114,13 @@ app.post('/addStash', function (req, res, next) {
 		 posts: [ ]
 	});
 
-	console.log("\nServer got POST request.\nResponding with status code 200.\n");
+	// Responding with status code 200.
 	res.status(200).send("Success");
 
 });
 
 //a catch all for any http DELETE requests.  WE DO NOT ALLOW ANY DELETE REQUEST
 app.delete('*', function (req, res, next) {
-	console.log('Server received "' + req.method + '" request on the URL "' + req.url + '" --METHOD NOT ALLOLWED');
 	res.status(405).send("DELETE is not allowed.");//note that status code 405 = Method not alowed
 });
 
@@ -137,7 +134,6 @@ app.get('/', function (req, res, next) {
 
 //we have recieved a request for the stash main page
 app.get('/stash', function (req, res, next) {
-//	console.log('Server received "' + req.method + '" request on the URL "' + req.url + '" --page found');
 	var stashCollection = mongoConnection.collection('stashes');
 	stashCollection.find().sort({topic: 1}).toArray(function (err, results) {
 		if (err) {
@@ -199,7 +195,6 @@ app.get('/stash/:stashName/:postId', function (req, res, next) {
 
 //catch any http get method with a path that can not be resolved above
 app.get('*', function (req, res, next) {
-	//console.log('Server received "' + req.method + '" request on the URL "' + req.url + '" --PAGE NOT FOUND -- sent contents of 404.html');
 	res.status(404).render('404Page');
 });
 
