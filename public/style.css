@@ -326,6 +326,7 @@ main{
   cursor: pointer;
   background-color: #f2b926;
   color: #333333;
+  font-weight: bold;
 }
 
 /* Modal body. */
@@ -386,6 +387,7 @@ main{
   cursor: pointer;
   background-color: #f2b926;
   color: #333333;
+  font-weight: bold;
 }
 
 /* The modal's cancel and accept buttons. */
