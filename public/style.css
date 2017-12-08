@@ -168,18 +168,18 @@ main{
 
 /* The title of a stash. */
 .stash-title  {
-  color: #FB9414;
+  color: #f2b926;
   font-size: 20px;
   font-weight: 700;
 }
 
 /* The user who made the post. */
 .post-user {
-  color: #FB9414;
+  color: #f2b926;
 }
 
 .commenter-name {
-  color: #FB9414;
+  color: #f2b926;
 }
 /* Mouse over name of result. */
 .post-title:hover {
@@ -211,7 +211,7 @@ main{
   min-height: 50px;
   border: 2px solid #ececec;
   border-radius: 3px;
-  background-color: #808080;
+  background-color: #444444;
 }
 
 /* Search box / user name box in the side bar. */
@@ -236,7 +236,7 @@ main{
   height: 30px;
   font-size: 18px;
   color: white;
-  background-color: #808080;
+  background-color: #444444;
   margin-top: 20px;
   margin-bottom: 20px;
 }
@@ -316,7 +316,7 @@ main{
   height: 30px;
   font-size: 18px;
   color: white;
-  background-color: #808080;
+  background-color: #444444;
   margin-top: 20px;
   margin-bottom: 20px;
 }
@@ -324,7 +324,8 @@ main{
 /* Mouse over close modal button. */
 .close-modal:hover {
   cursor: pointer;
-  background-color: #FB9414;
+  background-color: #f2b926;
+  color: #333333;
 }
 
 /* Modal body. */
@@ -375,7 +376,7 @@ main{
   height: 40px;
   font-size: 18px;
   color: white;
-  background-color: #808080;
+  background-color: #444444;
   margin-top: 20px;
   margin-bottom: 20px;
 }
@@ -383,7 +384,8 @@ main{
 /* Make action buttons / search button glow teal when hovered over. */
 .action-button:hover, .search-button:hover {
   cursor: pointer;
-  background-color: #FB9414;
+  background-color: #f2b926;
+  color: #333333;
 }
 
 /* The modal's cancel and accept buttons. */
