@@ -128,7 +128,7 @@ app.post("/stash/:stashId/:postId/addComment", function (req, res, next) {
 	};
 
 	var objectId = new ObjectID(req.params.postId);
-	
+
   stashCollection.updateOne(
 		{ topic: req.params.stashId, "posts.postId": objectId },
 		{ $push: { "posts.$.comments": postObj } },
