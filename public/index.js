@@ -322,79 +322,97 @@ if(commentButton) {
 
 console.log("Define variables for searching posts/stashes.");
 var searchButton = document.getElementById("id-search-button");
-var searchStash = document.getElementById("search-stash");
 var searchPost = document.getElementById("search-post");
+var searchStash = document.getElementById("search-stash");
 
-
-// This function sends a request to the server to find a stash that contains
-// the given text.
-function requestSearchStash(searchText) {
-  console.log("We are searching for a stash.");
-  var getRequest = new XMLHttpRequest();
-  var getURL = "/Stash/getStash";
-  getRequest.open('GET', getURL);
-
-  var getObj = {
-    searchText: searchText
-  };
-
-  var requestBody = JSON.stringify(getObj);
-  getRequest.setRequestHeader('Content-Type', 'application/json');
-
-  getRequest.addEventListener('load', function (event) {
-    if (event.target.status !== 200) {
-      alert("Error finding stash(es) in database:\n\n\n" + event.target.response);
-    } else {
-      console.log('Search 200')
-    }
-  });
-
-  console.log("getRequest:", requestBody);
-  getRequest.send(requestBody);
+if(document.getElementById('id-stashes')) {
+  var searchCopyStash = document.getElementById('id-stashes').cloneNode(true);
 }
 
-// This function sends a request to the server to find a post that contains
-// the given text.
+if(document.getElementById('id-posts')) {
+  var searchCopyPost = document.getElementById('id-posts').cloneNode(true);
+}
+
+// This function searches our stashes.
+function requestSearchStash(searchText) {
+  console.log("We are searching for a stash.");
+
+  // Make sure we are searching through all of our stashes.
+  stashRefresh();
+
+  // Update variables.
+  var allStash = document.getElementsByClassName('stash');
+  var searchStash = document.getElementById("search-stash").value;
+
+  // Remove all stashes that don't match our search filter.
+  for(var i = 0; i < allStash.length; i++) {
+    if(allStash[i]) {
+      savePostName = allStash[i].getElementsByClassName('stash-title');
+      savePostName = savePostName[0].innerText;
+      // Remove posts that don't match our text filter (Case in-sensitive).
+      if(savePostName.toUpperCase().search(searchStash.toUpperCase()) == -1 && searchStash !== "") {
+        allStash[i].remove();
+        i--;
+      }
+    }
+  }
+}
+
+// This function searches our posts.
 function requestSearchPost(searchText) {
   console.log("We are searching for a post.");
-  var getRequest = new XMLHttpRequest();
-  var getURL = "/posts/getPost";
-  getRequest.open('GET', getURL);
 
-  var getObj = {
-    type: "post",
-    searchText: searchText
-  };
+  // Make sure we are searching through all of our stashes.
+  postRefresh();
 
-  var requestBody = JSON.stringify(getObj);
-  getRequest.setRequestHeader('Content-Type', 'application/json');
+  // Update variables.
+  var allPost = document.getElementsByClassName('post');
+  var searchPost = document.getElementById("search-post").value;
 
-  getRequest.addEventListener('load', function (event) {
-    if (event.target.status !== 200) {
-      alert("Error finding post(s) in database:\n\n\n" + event.target.response);
-    } else {
-      console.log('Search Successful.');
+  // Remove all posts that don't match our search filter.
+  for(var i = 0; i < allPost.length; i++) {
+    if(allPost[i]) {
+      savePostName = allPost[i].getElementsByClassName('post-title');
+      savePostName = savePostName[0].innerText;
+      // Remove posts that don't match our text filter (Case in-sensitive).
+      if(savePostName.toUpperCase().search(searchPost.toUpperCase()) == -1 && searchPost !== "") {
+        allPost[i].remove();
+        i--;
+      }
     }
-  });
+  }
+}
 
-  console.log("getRequest:", requestBody);
-  getRequest.send(requestBody);
+// This function refreshes our stashes.
+function stashRefresh() {
+  console.log("Updated stashes.");
+  var copyOverContent = searchCopyStash.cloneNode(true);
+  var contentsOfPage = document.getElementById('id-content-container');
+  var allStash = document.getElementById('id-stashes');
+
+  allStash.remove();
+  contentsOfPage.appendChild(copyOverContent);
+}
+
+// This function refreshes our posts.
+function postRefresh() {
+  console.log("Updated posts.");
+  var copyOverContent = searchCopyPost.cloneNode(true);
+  var contentsOfPage = document.getElementById('id-content-container');
+  var allStash = document.getElementById('id-posts');
+
+  allStash.remove();
+  contentsOfPage.appendChild(copyOverContent);
 }
 
 // User clicks on search button.
 if(searchButton) {
   searchButton.addEventListener("click", function() {
     if(searchPost) {
-      // Don't search if the text field is empty.s
-      if(searchPost.value !== "") {
-        requestSearchPost(searchPost.value);
-      }
+      requestSearchPost(searchPost.value);
     }
     if(searchStash) {
-      // Don't search if the text field is empty.s
-      if(searchStash.value !== "") {
-        requestSearchStash(searchStash.value);
-      }
+      requestSearchStash(searchStash.value);
     }
   });
 }
