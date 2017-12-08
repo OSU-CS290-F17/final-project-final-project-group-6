@@ -11,6 +11,15 @@ var postPhotoInput = document.getElementById('post-photo-input');
 var stashNameInput = document.getElementById('stash-name-input');
 var stashDescriptionInput = document.getElementById('stash-description-input');
 
+// Copy of our stashes and posts.
+if(document.getElementById('id-stashes')) {
+  var searchCopyStash = document.getElementById('id-stashes').cloneNode(true);
+}
+
+if(document.getElementById('id-posts')) {
+  var searchCopyPost = document.getElementById('id-posts').cloneNode(true);
+}
+
 // This function uses the URL to get the stashId.
 function getStashId() {
   var currentURL = window.location.pathname;
@@ -112,8 +121,13 @@ if(postSubmitButton)
 
     var postHTML = Handlebars.templates.post(context);
 
+    // Make a post and add it into the DOM.
     var postsContainer = document.querySelector('#id-posts');
     postsContainer.insertAdjacentHTML('beforeend', postHTML);
+
+    // Make a copy of our post and add it to our post copy.
+    var newPostCopy = document.getElementById("id-posts").lastChild.previousSibling.cloneNode(true);
+    searchCopyPost.insertBefore(newPostCopy, searchCopyPost.lastChild.nextSibling);
 
     return postHTML;
   }
@@ -217,6 +231,10 @@ if(stashSubmitButton)
     //Insert the stash into the DOM.
     var stashesContainer = document.querySelector('#id-stashes');
     stashesContainer.insertAdjacentHTML('beforeend', stashHTML);
+
+    // Make a copy of our stash and add it to our stash copy.
+    var newStashCopy = document.getElementById("id-stashes").lastChild.previousSibling.cloneNode(true);
+    searchCopyStash.insertBefore(newStashCopy, searchCopyStash.lastChild.nextSibling);
 
     return stashHTML;
   }
@@ -324,14 +342,6 @@ console.log("Define variables for searching posts/stashes.");
 var searchButton = document.getElementById("id-search-button");
 var searchPost = document.getElementById("search-post");
 var searchStash = document.getElementById("search-stash");
-
-if(document.getElementById('id-stashes')) {
-  var searchCopyStash = document.getElementById('id-stashes').cloneNode(true);
-}
-
-if(document.getElementById('id-posts')) {
-  var searchCopyPost = document.getElementById('id-posts').cloneNode(true);
-}
 
 // This function searches our stashes.
 function requestSearchStash(searchText) {
