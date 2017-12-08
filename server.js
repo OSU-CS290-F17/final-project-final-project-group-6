@@ -39,76 +39,6 @@ var mongoURL = 'mongodb://' + mongoUser + ':' + mongoPassword + '@' + mongoHost 
 var mongoConnection = null;
 
 
-//app.use(bodyParser.json());
-
-///////////////////////////////////////////////////////////
-//// DELETE THIS WHEN WE HAVE THE SERVER WORKING CORRECTLY.
-///////////////////////////////////////////////////////////
-/* app.get('/', function(req, res) {
-	res.status(200).render('stashPage', {stashes: stashData});
-});
-
-app.get('/posts', function(req, res) {
-	res.status(200).render('postPage', {posts: postData});
-});
-
-app.get('/comments', function(req, res) {
-	res.status(200).render('commentPage', {posts: [postData["Cat"]], comments: commentData});
-});
-
-// We have gotten a request to add a stash. Respond.
-app.post('/addStash', function (req, res, next) {
-
-	var postObj = {
-		stashId: req.body.stashId,
-		topic: req.body.topic,
-		linkURL: req.body.linkURL,
-		text: req.body.text
-	};
-
-	console.log("\n\nServer got POST request:\n", postObj, "\nResponding with status code 200.");
-	res.status(200).send("Success");
-});
-
-// We have gotten a request to add a post. Respond.
-app.post('/posts/addPost', function (req, res, next) {
-
-	var postObj = {
-		postId: req.body.postId,
-		topic: req.body.topic,
-		user: req.body.user,
-		imageURL: req.body.imageURL,
-		linkURL: req.body.linkURL,
-		title: req.body.title
-	};
-
-	console.log("\n\nServer got POST request:\n", postObj, "\nResponding with status code 200.");
-	res.status(200).send("Success");
-});
-
-// We have gotten a request to add a comment. Respond.
-app.post('/comments/addComment', function (req, res, next) {
-
-	var postObj = {
-		commentId: req.body.commentId,
-    user: req.body.user,
-    text: req.body.text
-  };
-
-	console.log("\n\nServer got POST request:\n", postObj, "\nResponding with status code 200.");
-	res.status(200).send("Success");
-});
-
-// We have gotten an unknown request to add something. Respond.
-app.post('*', function (req, res, next) {
-	res.status(404).send("\n\nServer got POST request:\nPOST to unknown path.\nResponding with status code 404.");
-}); */
-
-//////////////////////////////////////////////////////////
-// /DELETE END.
-//////////////////////////////////////////////////////////
-
-
 
 //////////////////////////////////////
 ////*Express Middleware Functions*////
@@ -205,10 +135,11 @@ app.get('/', function (req, res, next) {
 	next();
 });
 
+//we have recieved a request for the stash main page
 app.get('/stash', function (req, res, next) {
 //	console.log('Server received "' + req.method + '" request on the URL "' + req.url + '" --page found');
 	var stashCollection = mongoConnection.collection('stashes');
-	stashCollection.find().toArray(function (err, results) {
+	stashCollection.find().sort({topic: 1}).toArray(function (err, results) {
 		if (err) {
 			res.status(500).send("Error fetching stash from DB");
 		} else {
@@ -220,6 +151,7 @@ app.get('/stash', function (req, res, next) {
 	});
 });
 
+//we have recieved a request for a post page
 app.get('/stash/:stashName', function (req, res, next) {
 	var stashName = req.params.stashName;
 	var stashCollection = mongoConnection.collection('stashes');
@@ -238,6 +170,7 @@ app.get('/stash/:stashName', function (req, res, next) {
 	});
 });
 
+//we have recieved a request for a comment page
 app.get('/stash/:stashName/:postId', function (req, res, next) {
  	var stashName = req.params.stashName;
  	var postId = req.params.postId;
@@ -271,7 +204,9 @@ app.get('*', function (req, res, next) {
 });
 
 
-
+//////////////////////////////////////////////
+////*Connect to Database and start Server*////
+//////////////////////////////////////////////
 console.log("---MongoDB URL = ", mongoURL);
 MongoClient.connect(mongoURL, function (err, connection) {
   if (err) {
