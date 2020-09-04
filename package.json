@@ -27,6 +27,6 @@
     "express": "^4.16.2",
     "express-handlebars": "^3.0.0",
     "handlebars": "^4.3.0",
-    "mongodb": "^2.2.33"
+    "mongodb": "^3.1.13"
   }
 }
